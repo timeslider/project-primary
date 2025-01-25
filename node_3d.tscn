@@ -1,0 +1,130 @@
+[gd_scene load_steps=10 format=3 uid="uid://c02lttn7lgmj1"]
+
+[ext_resource type="Script" uid="uid://culpkngyj7a3a" path="res://HSliderTest.cs" id="1_a202f"]
+[ext_resource type="PackedScene" uid="uid://c7dsk6alb0owl" path="res://Blender Meshes/blue-tile.blend" id="2_noarx"]
+[ext_resource type="Script" uid="uid://bge4uc4c13t3m" path="res://fps_counter.gd" id="3_a0tk4"]
+[ext_resource type="Script" uid="uid://clpxcmmh6e1sm" path="res://rotation-test.gd" id="4_r3fl7"]
+[ext_resource type="PackedScene" uid="uid://dfsgp35btpnav" path="res://Blender Meshes/ground.blend" id="5_jka67"]
+[ext_resource type="PackedScene" uid="uid://ctvas7fra783q" path="res://Blender Meshes/dummy-stage.blend" id="6_i5arm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5arm"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+sky_curve = 1e-05
+ground_bottom_color = Color(1, 1, 1, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
+ground_curve = 3.90625e-05
+energy_multiplier = 0.25
+
+[sub_resource type="Sky" id="Sky_jka67"]
+sky_material = SubResource("ProceduralSkyMaterial_i5arm")
+
+[sub_resource type="Environment" id="Environment_jsk3o"]
+background_mode = 2
+sky = SubResource("Sky_jka67")
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0.5175, 0.69, 1)
+fog_density = 1.0
+fog_height = -1.0
+fog_height_density = 3.0
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_a202f")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, 0.408607, -0.577096, 0, 0.816138, 0.577858, 0.707107, -0.408607, 0.577096, -1.648, 4.07, 8.637)
+projection = 1
+size = 9.102
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 31.0
+offset_top = 120.0
+offset_right = 3029.0
+offset_bottom = 219.0
+size_flags_horizontal = 3
+max_value = 9.22337e+18
+value = 17.0
+rounded = true
+tick_count = 12
+
+[node name="Button" type="Button" parent="."]
+offset_left = 1050.0
+offset_top = 25.0
+offset_right = 1131.0
+offset_bottom = 70.0
+text = "Go!"
+
+[node name="Label" type="Label" parent="Button"]
+layout_mode = 0
+offset_left = -575.0
+offset_top = 355.0
+offset_right = -333.0
+offset_bottom = 397.0
+
+[node name="TextEdit" type="TextEdit" parent="Button"]
+layout_mode = 0
+offset_left = -1026.0
+offset_right = -20.0
+offset_bottom = 45.0
+
+[node name="Utility" type="Node" parent="."]
+
+[node name="Increase" type="Button" parent="."]
+offset_left = 473.0
+offset_top = 233.0
+offset_right = 578.0
+offset_bottom = 276.0
+text = "+"
+
+[node name="Decrease" type="Button" parent="."]
+offset_left = 623.0
+offset_top = 233.0
+offset_right = 728.0
+offset_bottom = 276.0
+text = "-"
+
+[node name="Playable" type="Button" parent="."]
+offset_left = 516.0
+offset_top = 306.0
+offset_right = 673.0
+offset_bottom = 360.0
+text = "Playable?"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 28.0
+offset_top = 911.0
+offset_right = 507.0
+offset_bottom = 1071.0
+text = "<null>"
+script = ExtResource("3_a0tk4")
+
+[node name="blue-tile2" parent="." instance=ExtResource("2_noarx")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.05509, 2.955, 1.25854)
+visible = false
+script = ExtResource("4_r3fl7")
+
+[node name="Puzzle" type="Node3D" parent="."]
+
+[node name="ground" parent="." instance=ExtResource("5_jka67")]
+visible = false
+
+[node name="ground" parent="ground" instance=ExtResource("5_jka67")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="ground2" parent="ground" instance=ExtResource("5_jka67")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="ground3" parent="ground" instance=ExtResource("5_jka67")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jsk3o")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.436194, 0.570828, -0.695622, 0.303253, 0.82107, 0.483614, 0.847215, 0, -0.531251, 3.63583, 1.32981, 5.71938)
+shadow_enabled = true
+
+[node name="dummy-stage" parent="." instance=ExtResource("6_i5arm")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+visible = false
