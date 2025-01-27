@@ -576,7 +576,6 @@ namespace ProjectPrimary
             // The List is empty and never added to
             solutions[initialState] = new List<Direction>();
 
-            Thread.Sleep(50);
             while (queue.Count > 0)
             {
                 var (currentState, currentPath) = queue.Dequeue();
@@ -590,6 +589,7 @@ namespace ProjectPrimary
 
                     if (!visited.Contains(newState))
                     {
+                        var redTile = (PackedScene)ResourceLoader.Load("res://Blender Meshes/red-tile.blend");
                         var newPath = new List<Direction>(currentPath) { direction };
                         visited.Add(newState);
                         solutions[newState] = newPath;

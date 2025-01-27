@@ -100,8 +100,7 @@ text = "<null>"
 script = ExtResource("3_a0tk4")
 
 [node name="blue-tile2" parent="." instance=ExtResource("2_noarx")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.05509, 2.955, 1.25854)
-visible = false
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -4.51, 2.955, 4.084)
 script = ExtResource("4_r3fl7")
 
 [node name="Puzzle" type="Node3D" parent="."]
@@ -128,3 +127,21 @@ shadow_enabled = true
 [node name="dummy-stage" parent="." instance=ExtResource("6_i5arm")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 visible = false
+
+[node name="StartState" type="ScrollContainer" parent="."]
+offset_left = 134.0
+offset_top = 331.0
+offset_right = 463.0
+offset_bottom = 441.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartState"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 714.0
+offset_top = 297.0
+offset_right = 986.0
+offset_bottom = 366.0
+text = "Populate List"

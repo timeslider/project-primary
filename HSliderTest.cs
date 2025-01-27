@@ -14,6 +14,7 @@ namespace ProjectPrimary
         private Button Playable;
         private TextEdit TextEditField;
         private Button Go;
+        private Button PopulateState;
         private Label PuzzleStatus;
         private Bitboard bitboard;
         private ulong _nthPolyomino;
@@ -54,6 +55,7 @@ namespace ProjectPrimary
             Decrease = GetNode<Button>("Decrease");
             PuzzleStatus = GetNode<Label>("Button/Label");
             Go = GetNode<Button>("Button");
+            PopulateState = GetNode<Button>("Button2");
             TextEditField = GetNode<TextEdit>("Button/TextEdit");
             Playable = GetNode<Button>("Playable");
             HSlider.MaxValue = maxPolyomino;
@@ -67,7 +69,7 @@ namespace ProjectPrimary
             Decrease.ButtonUp += _on_button_decrease_up;
             Playable.Pressed += _OnPlayablePressed;
             Go.Pressed += _OnGoPressed;
-            
+            PopulateState.Pressed += UpdateStateLists;
         }
 
         private void _OnGoPressed()
@@ -201,6 +203,30 @@ namespace ProjectPrimary
             }
         }
 
+        private void UpdateStateLists()
+        {
+            var startState = GetNode<VBoxContainer>("StartState/VBoxContainer");
+            GD.Print("Populating state");
+
+            var solutions = bitboard.Solutions();
+            // Clear existing lists
+            foreach (var child in startState.GetChildren())
+            {
+                child.Free();
+            }
+            int i = 0;
+            foreach(var solution in solutions)
+            {
+                //if(i == 10)
+                //{
+                //    break;
+                //}
+                Button button = new Button();
+                button.Text = $"{solution.Key}";
+                startState.AddChild(button);
+                i++;
+            }
+        }
     }
 }
 
