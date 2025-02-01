@@ -18,7 +18,7 @@ namespace ProjectPrimary
     {
         // A ulong where the 1s represent where the walls are
         private ulong wallData;
-        public ulong WallData { get { return wallData; } }
+        public ulong WallData { get { return wallData; } set { wallData = value; } }
 
         // If palyable is false, then this bitboard is not playable
         // In the future, I want to list the reasons it isn't playable

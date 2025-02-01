@@ -1,11 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c02lttn7lgmj1"]
+[gd_scene load_steps=8 format=3 uid="uid://c02lttn7lgmj1"]
 
 [ext_resource type="Script" uid="uid://culpkngyj7a3a" path="res://HSliderTest.cs" id="1_a202f"]
-[ext_resource type="PackedScene" uid="uid://c7dsk6alb0owl" path="res://Blender Meshes/blue-tile.blend" id="2_noarx"]
 [ext_resource type="Script" uid="uid://bge4uc4c13t3m" path="res://fps_counter.gd" id="3_a0tk4"]
-[ext_resource type="Script" uid="uid://clpxcmmh6e1sm" path="res://rotation-test.gd" id="4_r3fl7"]
-[ext_resource type="PackedScene" uid="uid://dfsgp35btpnav" path="res://Blender Meshes/ground.blend" id="5_jka67"]
-[ext_resource type="PackedScene" uid="uid://ctvas7fra783q" path="res://Blender Meshes/dummy-stage.blend" id="6_i5arm"]
+[ext_resource type="PackedScene" uid="uid://ctvas7fra783q" path="res://Blender Meshes/dummy-stage.blend" id="3_r3fl7"]
+[ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="8_jsk3o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5arm"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -32,18 +30,22 @@ fog_height_density = 3.0
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_a202f")
 
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.5, 8.015, 3.5)
+fov = 57.1
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.707107, 0.408607, -0.577096, 0, 0.816138, 0.577858, 0.707107, -0.408607, 0.577096, -1.648, 4.07, 8.637)
+transform = Transform3D(0.707107, 0.408607, -0.577096, 0, 0.816138, 0.577858, 0.707107, -0.408607, 0.577096, -1.648, 6.575, 8.637)
+visible = false
 projection = 1
 size = 9.102
 
 [node name="HSlider" type="HSlider" parent="."]
 offset_left = 31.0
 offset_top = 120.0
-offset_right = 3029.0
+offset_right = 1478.0
 offset_bottom = 219.0
 size_flags_horizontal = 3
-max_value = 9.22337e+18
 value = 17.0
 rounded = true
 tick_count = 12
@@ -57,10 +59,10 @@ text = "Go!"
 
 [node name="Label" type="Label" parent="Button"]
 layout_mode = 0
-offset_left = -575.0
-offset_top = 355.0
-offset_right = -333.0
-offset_bottom = 397.0
+offset_left = -1008.0
+offset_top = 199.0
+offset_right = -766.0
+offset_bottom = 241.0
 
 [node name="TextEdit" type="TextEdit" parent="Button"]
 layout_mode = 0
@@ -71,24 +73,24 @@ offset_bottom = 45.0
 [node name="Utility" type="Node" parent="."]
 
 [node name="Increase" type="Button" parent="."]
-offset_left = 473.0
-offset_top = 233.0
-offset_right = 578.0
-offset_bottom = 276.0
+offset_left = 1172.0
+offset_top = 26.0
+offset_right = 1277.0
+offset_bottom = 69.0
 text = "+"
 
 [node name="Decrease" type="Button" parent="."]
-offset_left = 623.0
-offset_top = 233.0
-offset_right = 728.0
-offset_bottom = 276.0
+offset_left = 1172.0
+offset_top = 83.0
+offset_right = 1277.0
+offset_bottom = 126.0
 text = "-"
 
 [node name="Playable" type="Button" parent="."]
-offset_left = 516.0
-offset_top = 306.0
-offset_right = 673.0
-offset_bottom = 360.0
+offset_left = 1313.0
+offset_top = 27.0
+offset_right = 1470.0
+offset_bottom = 81.0
 text = "Playable?"
 
 [node name="Label" type="Label" parent="."]
@@ -99,23 +101,7 @@ offset_bottom = 1071.0
 text = "<null>"
 script = ExtResource("3_a0tk4")
 
-[node name="blue-tile2" parent="." instance=ExtResource("2_noarx")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -4.51, 2.955, 4.084)
-script = ExtResource("4_r3fl7")
-
 [node name="Puzzle" type="Node3D" parent="."]
-
-[node name="ground" parent="." instance=ExtResource("5_jka67")]
-visible = false
-
-[node name="ground" parent="ground" instance=ExtResource("5_jka67")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
-
-[node name="ground2" parent="ground" instance=ExtResource("5_jka67")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
-
-[node name="ground3" parent="ground" instance=ExtResource("5_jka67")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 8)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jsk3o")
@@ -123,10 +109,6 @@ environment = SubResource("Environment_jsk3o")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.436194, 0.570828, -0.695622, 0.303253, 0.82107, 0.483614, 0.847215, 0, -0.531251, 3.63583, 1.32981, 5.71938)
 shadow_enabled = true
-
-[node name="dummy-stage" parent="." instance=ExtResource("6_i5arm")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
-visible = false
 
 [node name="StartState" type="ScrollContainer" parent="."]
 offset_left = 134.0
@@ -140,8 +122,60 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Button2" type="Button" parent="."]
+visible = false
 offset_left = 714.0
 offset_top = 297.0
 offset_right = 986.0
 offset_bottom = 366.0
 text = "Populate List"
+
+[node name="dummy-stage" parent="." instance=ExtResource("3_r3fl7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+visible = false
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+
+[node name="GuideDebugger" parent="DebugLayer" instance=ExtResource("8_jsk3o")]
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="StartSlider" type="VSlider" parent="."]
+offset_left = 107.0
+offset_top = 337.0
+offset_right = 134.0
+offset_bottom = 808.0
+
+[node name="EndSlider" type="VSlider" parent="."]
+offset_left = 1419.0
+offset_top = 291.0
+offset_right = 1435.0
+offset_bottom = 803.0
+
+[node name="StartStateLabel" type="Label" parent="."]
+offset_left = 86.0
+offset_top = 831.0
+offset_right = 360.0
+offset_bottom = 908.0
+text = "Start index"
+
+[node name="EndStateLabel" type="Label" parent="."]
+offset_left = 1391.0
+offset_top = 830.0
+offset_right = 1665.0
+offset_bottom = 907.0
+text = "End index"
+
+[node name="Solution" type="Label" parent="."]
+offset_left = 9.0
+offset_top = 965.0
+offset_right = 1515.0
+offset_bottom = 1069.0
+text = "Left, Right, Right, Up, Down, Right, Left"
+
+[node name="Goals" type="Node3D" parent="."]
+
+[node name="PlayerTiles" type="Node3D" parent="."]
