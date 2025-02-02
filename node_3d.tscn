@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://c02lttn7lgmj1"]
+[gd_scene load_steps=12 format=3 uid="uid://c02lttn7lgmj1"]
 
 [ext_resource type="Script" uid="uid://culpkngyj7a3a" path="res://HSliderTest.cs" id="1_a202f"]
+[ext_resource type="Script" uid="uid://dtg2gf4nngmnr" path="res://move.gd" id="2_jsk3o"]
+[ext_resource type="Resource" uid="uid://gsh47x82llwr" path="res://GUIDE/move-tile-guide-action.tres" id="3_4arys"]
 [ext_resource type="Script" uid="uid://bge4uc4c13t3m" path="res://fps_counter.gd" id="3_a0tk4"]
 [ext_resource type="PackedScene" uid="uid://ctvas7fra783q" path="res://Blender Meshes/dummy-stage.blend" id="3_r3fl7"]
+[ext_resource type="PackedScene" uid="uid://balowbilok4f0" path="res://Blender Meshes/red-tile.blend" id="5_i5arm"]
+[ext_resource type="Script" uid="uid://clpxcmmh6e1sm" path="res://rotation-test.gd" id="6_wc5p8"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="8_jsk3o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5arm"]
@@ -33,6 +37,8 @@ script = ExtResource("1_a202f")
 [node name="Camera3D2" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.5, 8.015, 3.5)
 fov = 57.1
+script = ExtResource("2_jsk3o")
+move = ExtResource("3_4arys")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, 0.408607, -0.577096, 0, 0.816138, 0.577858, 0.707107, -0.408607, 0.577096, -1.648, 6.575, 8.637)
@@ -43,7 +49,7 @@ size = 9.102
 [node name="HSlider" type="HSlider" parent="."]
 offset_left = 31.0
 offset_top = 120.0
-offset_right = 1478.0
+offset_right = 1718.0
 offset_bottom = 219.0
 size_flags_horizontal = 3
 value = 17.0
@@ -150,9 +156,9 @@ offset_right = 134.0
 offset_bottom = 808.0
 
 [node name="EndSlider" type="VSlider" parent="."]
-offset_left = 1419.0
+offset_left = 1654.0
 offset_top = 291.0
-offset_right = 1435.0
+offset_right = 1670.0
 offset_bottom = 803.0
 
 [node name="StartStateLabel" type="Label" parent="."]
@@ -163,9 +169,9 @@ offset_bottom = 908.0
 text = "Start index"
 
 [node name="EndStateLabel" type="Label" parent="."]
-offset_left = 1391.0
+offset_left = 1614.0
 offset_top = 830.0
-offset_right = 1665.0
+offset_right = 1888.0
 offset_bottom = 907.0
 text = "End index"
 
@@ -179,3 +185,8 @@ text = "Left, Right, Right, Up, Down, Right, Left"
 [node name="Goals" type="Node3D" parent="."]
 
 [node name="PlayerTiles" type="Node3D" parent="."]
+
+[node name="red-tile2" parent="." instance=ExtResource("5_i5arm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.185, 6.645, 3.37)
+visible = false
+script = ExtResource("6_wc5p8")

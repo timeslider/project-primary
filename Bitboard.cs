@@ -14,19 +14,19 @@ using System.Threading;
 
 namespace ProjectPrimary
 {
-    internal class Bitboard
+    internal static class Bitboard
     {
         // A ulong where the 1s represent where the walls are
-        private ulong wallData;
-        public ulong WallData { get { return wallData; } set { wallData = value; } }
+        private static ulong wallData;
+        public static ulong WallData { get { return wallData; } set { wallData = value; } }
 
         // If palyable is false, then this bitboard is not playable
         // In the future, I want to list the reasons it isn't playable
         // For now, the other reason is too few empty cells
-        private bool playable;
-        public bool Playable { get { return playable; } }
-        private List<string> reasons = new List<string>();
-        public List<string> Reasons
+        private static bool playable;
+        public static bool Playable { get { return playable; } }
+        private static List<string> reasons = new List<string>();
+        public static List<string> Reasons
         {
             get {  return reasons; }
             private set {  reasons = value; }
@@ -37,17 +37,17 @@ namespace ProjectPrimary
         // They represent where a colored tile is
         // They are 0-indexed and start at the top left and go left to right, top to bottom ending at the bottom right corner
         // They're eventually packed into 18-bit State variable where the first 6 bits are the red tile, the next 6 bits are yellow and the last 6 are blue
-        private int red = 0;
-        public int Red { get { return red; } }
-        private int yellow = 0;
-        public int Yellow { get { return yellow; } }
-        private int blue = 0;
-        public int Blue { get { return blue; } }
+        private static int red = 0;
+        public static int Red { get { return red; } }
+        private static int yellow = 0;
+        public static int Yellow { get { return yellow; } }
+        private static int blue = 0;
+        public static int Blue { get { return blue; } }
 
 
         // A merge of the colored tiles.
         // Defined by: state = red | (yellow << 6) | (blue << 12)
-        public int State { get { return GetState(); } }
+        public static int State { get { return GetState(); } }
 
         // The boundaries of the edges. Used to determine if crossing the solutionsList axis
         // Since a lot of indices goes from 0 to n -1 within an solutionsList, y plane we need a way to know when we have moved to another row
@@ -75,23 +75,22 @@ namespace ProjectPrimary
         }
 
 
-        /// <summary>
-        /// Bitboards are always assumed to be 8 by 8
-        /// </summary>
-        /// <param name="bitboard">The wall data</param>
-        public Bitboard(ulong bitboard)
-        {
-            wallData = bitboard;
-            GetInitialState();
-            CheckPlayable();
-            //if (playable == true)
-            //{
-            //    GetInitialState();
-            //}
-            //if(wallData == 49340209542762048UL)
-            //{
-            //}
-        }
+        ///// <summary>
+        ///// Bitboards are always assumed to be 8 by 8
+        ///// </summary>
+        ///// <param name="bitboard">The wall data</param>
+        //static Bitboard()
+        //{
+        //    //wallData = bitboard;
+        //    CheckPlayable();
+        //    //if (playable == true)
+        //    //{
+        //    //    GetInitialState();
+        //    //}
+        //    //if(wallData == 49340209542762048UL)
+        //    //{
+        //    //}
+        //}
 
 
 
@@ -103,7 +102,7 @@ namespace ProjectPrimary
         /// <param name="index">The index of the cell you're querring</param>
         /// <returns>A bool</returns>
         /// <exception cref="ArgumentOutOfRangeException">If index is less than 0 or greater than (sizeX * sizeY) - 1</exception>
-        public bool GetBitboardCell(int index)
+        public static bool GetBitboardCell(int index)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
             ArgumentOutOfRangeException.ThrowIfGreaterThan(index, 63);
@@ -119,7 +118,7 @@ namespace ProjectPrimary
         /// <param name="col">The col index of the bit that will be set</param>
         /// <param name="row">The row index of the bit that will be set</param>
         /// <returns>A bool</returns>
-        public bool GetBitboardCell(int col, int row)
+        public static bool GetBitboardCell(int col, int row)
         {
             // Just in case
             CheckBounds(col, row);
@@ -138,7 +137,7 @@ namespace ProjectPrimary
         /// <param name="row"></param>
         /// <param name="zeroIndexed">Defaults to true. Otherwise, assumes 1-indexed</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        private void CheckBounds(int col, int row, bool zeroIndexed = true)
+        private static void CheckBounds(int col, int row, bool zeroIndexed = true)
         {
             int lowIndex;
             int highIndex;
@@ -177,7 +176,7 @@ namespace ProjectPrimary
         /// Returns the current state
         /// </summary>
         /// <returns>The current state</returns>
-        public int GetState()
+        public static int GetState()
         {
             return red | (yellow << 6) | (blue << 12);
         }
@@ -189,7 +188,7 @@ namespace ProjectPrimary
         /// Sets the red, yellow, and blue channels from an existing state
         /// </summary>
         /// <param name="existingState">An int where the first 18 bits are split into the 3 colors</param>
-        public void SetState(int existingState)
+        public static void SetState(int existingState)
         {
             red = existingState & 0x3f;
             yellow = (existingState >> 6) & 0x3f;
@@ -203,7 +202,7 @@ namespace ProjectPrimary
         /// Prints the bitboard
         /// </summary>
         /// <param name="invert">Inverts the bitboard so 1s get displayed as 0s and visa versa</param>
-        public void PrintBitboard(bool invert = false)
+        public static void PrintBitboard(bool invert = false)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -255,10 +254,9 @@ namespace ProjectPrimary
         /// Scanning left to right, top to bottom find the first empty cell and place a red tile.
         /// The remaining 2 colors should be attached to the red tile edge wise and their placement should create a minimum.
         /// </summary>
-        public void GetInitialState()
+        public static void GetInitialState()
         {
-            List<int> colors = new List<int>(3);
-            colors.Add(BitOperations.TrailingZeroCount(~wallData));
+            List<int> colors = new List<int>(3) { BitOperations.TrailingZeroCount(~wallData) };
 
             // Case 1: Move right
             if (CanMove(Direction.Right, colors[0]) > 0)
@@ -303,17 +301,18 @@ namespace ProjectPrimary
             red = colors[0];
             yellow = Math.Min(colors[1], colors[2]);
             blue = Math.Max(colors[1], colors[2]);
+            GD.Print($"Initial state was {State}");
         }
 
 
 
 
-        private void CheckPlayable()
+        public static void CheckPlayable()
         {
             // Empty cell count
             // Let the user define the minimum
             playable = true;
-            int solutionCount = Solutions().Count;
+            int solutionCount = states.Count;
             if ((64 - BitOperations.PopCount(wallData)) < 4)
             {
                 playable = false;
@@ -322,7 +321,7 @@ namespace ProjectPrimary
             else if (solutionCount < 10) // This won't run if there are too few cells so it's ok
             {
                 playable = false;
-                Reasons.Add($"There were only {solutionCount} solutions.");
+                Reasons.Add($"There were only {solutionCount} states.");
             }
         }
 
@@ -338,7 +337,7 @@ namespace ProjectPrimary
         /// <param name="direction"></param>
         /// <param name="currentPosition"></param>
         /// <returns></returns>
-        private int CanMove(Direction direction, int currentPosition)
+        private static int CanMove(Direction direction, int currentPosition)
         {
             int directionVector = 0; // Where you are going to land
             int edge = 0;
@@ -394,7 +393,7 @@ namespace ProjectPrimary
         /// </summary>
         /// <param name="direction">The direction to try to move in</param>
         /// <returns>A new state</returns>
-        private int MoveToNewState(Direction direction)
+        private static int MoveToNewState(Direction direction)
         {
 
             // Colors
@@ -483,7 +482,7 @@ namespace ProjectPrimary
         /// Accepts a bitboard with a single bit and returns its index
         /// </summary>
         /// <param name="bitboard"></param>
-        private int BitboardToIndex(ulong bitboard)
+        private static int BitboardToIndex(ulong bitboard)
         {
             if (BitOperations.PopCount(bitboard) != 1)
             {
@@ -507,7 +506,7 @@ namespace ProjectPrimary
         /// <param name="colors">The rest of the colors</param>
         /// <param name="moveDirection">The direction we are trying to move</param>
         /// <returns></returns>
-        private bool CheckOverlapColors(int i, List<(ulong bitboard, char name)> colors, int moveDirection)
+        private static bool CheckOverlapColors(int i, List<(ulong bitboard, char name)> colors, int moveDirection)
         {
             for (int j = 0; j < colors.Count; j++) // Check if the other tiles are here
             {
@@ -534,7 +533,7 @@ namespace ProjectPrimary
         /// <param name="bitboard">It assumes that bitboard has only 1 bit in it</param>
         /// <param name="shiftAmount">The amount to shift. Typical � 1 or � width</param>
         /// <returns>A bitboard with the bit shifted</returns>
-        private ulong ShiftBitboardCell(ulong bitboard, int shiftAmount)
+        private static ulong ShiftBitboardCell(ulong bitboard, int shiftAmount)
         {
             if (shiftAmount > 0)
             {
@@ -549,58 +548,63 @@ namespace ProjectPrimary
 
 
 
+        public static List<int> states = new List<int>();
         /// <summary>
         /// Performs a BFS to find all the possible states of a given bitboard and inital starting state
         /// </summary>
         /// <TODO>There might be a simplier version of this on Claude.ai</TODO>
         /// <returns>A dictionary of type int, list where int is a new state and list contains all the moves needed to go from the inital state to the new state</returns>
-        public Dictionary<int, List<Direction>> Solutions()
+        public static async Task<List<int>> StatesAsync()
         {
-            GD.Print("Solutions method was ran again...");
-            // Stores the states we have already visited
-            var visited = new HashSet<int>();
 
-            // Stores the states we need to visit
-            var queue = new Queue<(int state, List<Direction> path)>();
-
-            // The output. The int is a new state and the List is a list of directions
-            // If you start at the initial state and follow the directions, you'll end up at the new state
-            Dictionary<int, List<Direction>> solutions = new Dictionary<int, List<Direction>>();
-
-            // Get initial state and add to data structures
-            int initialState = GetState();
-            queue.Enqueue((initialState, new List<Direction>()));
-            visited.Add(initialState);
-
-            // I think I might not have to do this since yourself isn't a solution
-            // The List is empty and never added to
-            solutions[initialState] = new List<Direction>();
-
-            while (queue.Count > 0)
+            return await Task.Run(() =>
             {
-                var (currentState, currentPath) = queue.Dequeue();
+                GD.Print("StatesAsync method was ran again...");
+                // Stores the states we have already visited
+                var visited = new HashSet<int>();
 
-                // Set the board to current state once before trying directions
-                SetState(currentState);
+                // Stores the states we need to visit
+                var queue = new Queue<int>();
 
-                foreach (Direction direction in Enum.GetValues(typeof(Direction)))
+                // The output. The int is a new state and the List is a list of directions
+                // If you start at the initial state and follow the directions, you'll end up at the new state
+                states.Clear();
+
+                // Get initial state and add to data structures
+                GetInitialState();
+                GD.Print("This is the initial state");
+                PrintBitboard();
+                queue.Enqueue(GetState());
+                visited.Add(GetState());
+                states.Add(GetState());
+
+                while (queue.Count > 0)
                 {
-                    int newState = MoveToNewState(direction);
+                    var currentState = queue.Dequeue();
 
-                    if (!visited.Contains(newState))
-                    {
-                        var redTile = (PackedScene)ResourceLoader.Load("res://Blender Meshes/red-tile.blend");
-                        var newPath = new List<Direction>(currentPath) { direction };
-                        visited.Add(newState);
-                        solutions[newState] = newPath;
-                        queue.Enqueue((newState, newPath));
-                    }
-
-                    // Reset to current state before trying colors direction
+                    // Set the board to current state once before trying directions
                     SetState(currentState);
+
+                    foreach (Direction direction in Enum.GetValues(typeof(Direction)))
+                    {
+                        int newState = MoveToNewState(direction);
+
+                        if (!visited.Contains(newState))
+                        {
+                            visited.Add(newState);
+                            queue.Enqueue(newState);
+                            states.Add(newState);
+                        }
+
+                        // Reset to current state before trying colors direction
+                        SetState(currentState);
+                    }
                 }
-            }
-            return solutions;
+                SetState(states[0]);
+                GD.Print($"This is state[0]. There are {states.Count} states.");
+                PrintBitboard();
+                return states;
+            });
         }
     }
 }
