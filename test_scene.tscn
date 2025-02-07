@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmn6fk7foeulo"]
+
+[ext_resource type="Script" uid="uid://cieqek3lv1llg" path="res://bitboard.gd" id="1_uhqqe"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_uhqqe")
