@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://fin3ib81rj63"]
+
+[sub_resource type="Environment" id="Environment_8kfqt"]
+background_mode = 3
+glow_enabled = true
+glow_levels/1 = 16.0
+glow_levels/2 = 16.0
+glow_levels/3 = 16.0
+glow_levels/4 = 16.0
+glow_levels/5 = 16.0
+glow_levels/6 = 16.0
+glow_levels/7 = 16.0
+glow_strength = 1.41
+glow_bloom = 0.01
+glow_blend_mode = 1
+glow_hdr_threshold = 1.38
+
+[node name="Node3D" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8kfqt")
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(17, 108)
+points = PackedVector2Array(195, 220, 364, 258, 360, 77, 516, 157, 848, 41)
+default_color = Color(0, 0.717647, 1, 1)

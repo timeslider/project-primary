@@ -29,8 +29,9 @@ static var transitions: Array = []
 const ALL_WATER = 0xFF
 
 func _ready() -> void:
-	var x = expand_state("000000", 0)
-	
+	bitboard.wall_data = 49340209542762048
+	expand_state("00000000", 0xFF)
+	make_gen_state(0, 0, 0)
 	print(gen_state_numbers.size())
 	print(gen_states.size())
 	print(state_numbers.size())
@@ -41,10 +42,9 @@ func _ready() -> void:
 ## Fill out a state in the generator table if it doesn't exist
 ## Return the state number
 static func make_gen_state(next_row_number: int, checker_state: int, have_islands: int):
-	pass
 	var state_key: int = checker_state + next_row_number * 4096 + have_islands * 65536
 	if gen_state_numbers.has(state_key):
-		gen_state_numbers[state_key]
+		return gen_state_numbers[state_key]
 	var new_gen_state: int = gen_states.size()
 	gen_state_numbers[state_key] = new_gen_state
 	var tlist: Array[gen_transition_info] = []
@@ -52,7 +52,6 @@ static func make_gen_state(next_row_number: int, checker_state: int, have_island
 	var transitions_offset: int = checker_state * 256
 	var total_paths: int = 0
 	for i in range(0, 256):
-		pass
 		var transition: int = transitions[transitions_offset + i]
 		var next_checker_state: int = transition & 0x0FFF
 		var new_inslands: int = (transition >> 12) + have_islands
@@ -65,22 +64,22 @@ static func make_gen_state(next_row_number: int, checker_state: int, have_island
 			new_inslands += transitions[next_checker_state * 256 + ALL_WATER] >> 12
 			if new_inslands  == 1:
 				total_paths += 1
-				var new_gen: gen_transition_info
+				var new_gen: gen_transition_info = gen_transition_info.new()
 				new_gen.next_row = i
 				new_gen.next_state = 0
 				new_gen.cumulative_paths = total_paths
 				tlist.append(new_gen)
 		else:
 			var next_gen_state: int = make_gen_state(next_row_number + 1, next_checker_state, new_inslands)
-			var new_paths: int = gen_states[next_gen_state].cumulative_paths
+			var new_paths: int = gen_states[next_gen_state][-1].cumulative_paths
 			if new_paths > 0:
 				total_paths += new_paths
-				var new_gen: gen_transition_info
+				var new_gen: gen_transition_info = gen_transition_info.new()
 				new_gen.next_row = i
 				new_gen.next_state = next_gen_state
 				new_gen.cumulative_paths = total_paths
 				tlist.append(new_gen)
-		return new_gen_state
+	return new_gen_state
 
 #func get_nth_polyomino(n: int) -> int:
 	#var state: int = 0
@@ -136,13 +135,11 @@ static func make_gen_state(next_row_number: int, checker_state: int, have_island
 #/// <param name="nextrow">the lower 8 bits represent the next row.  0-bits are land</param>
 #/// <returns>The transition code for the transition from stateCode to nextrow</returns>
 static func expand_state(state_code: String, next_row: int) -> int:
-	pass
 	var sets: Array[int] = []
 	#sets.resize(8) This is not be necessary
 	#int[] sets = new int[8];
 	for i in range(0, 8):
 		sets.append((~next_row >> i) & 1)
-	return 0
 	for i in range(0, 7):
 		if ((~next_row >> i) & 3) == 3:
 			union(sets, i, i + 1)
@@ -151,8 +148,8 @@ static func expand_state(state_code: String, next_row: int) -> int:
 	var top_island_count: int = 0
 	for i in range(0, 8):
 		# The unicode at function should return the ascii value. If not, we'll need another solution
-		var digit: int = (state_code[i]).unicode_at(0)
-		var top_island: int = digit - "1".unicode_at(0)
+		var digit: int = state_code.unicode_at(i)
+		var top_island: int = digit - 49 # 49 = '1' in ascii
 		top_island_count = max(top_island_count, top_island + 1)
 		
 		if sets[i] != 0 and top_island >= 0:
@@ -166,20 +163,21 @@ static func expand_state(state_code: String, next_row: int) -> int:
 		if links[i] < 0:
 			cutoff_count += 1 # This was originally ++cutoffCount
 	
-	var next_set: int = '1'.unicode_at(0)
+	var next_set: int = 49
 	#char nextSet = '1';
-	var new_chars: Array[int] = ["0".unicode_at(0), "0".unicode_at(0), "0".unicode_at(0), "0".unicode_at(0), "0".unicode_at(0), "0".unicode_at(0), "0".unicode_at(0), "0".unicode_at(0)]
+	var new_chars: Array[int] = [48, 48, 48, 48, 48, 48, 48, 48]
 	
-	for i in range(0, 8):
-		links[i] = -1
+	links = [-1, -1, -1, -1, -1, -1, -1, -1]
 	
 	for i in range(0, 8):
 		if sets[i] != 0:
 			var _set: int = find(sets, i)
-			var link: int = links[_set];
+			var link: int = links[_set]
 			if link >= 0:
 				new_chars[i] = new_chars[link]
-				new_chars[i] = next_set + 1
+			else:
+				new_chars[i] = next_set
+				next_set += 1
 				links[_set] = i
 	var new_state_code: String
 	for _char in new_chars:
@@ -194,7 +192,7 @@ static func expand_state(state_code: String, next_row: int) -> int:
 	
 	while transitions.size() <= (new_state + 1) * 256:
 		transitions.append(0)
-	for i in range(0, 256):
+	for i in range(256):
 		transitions[new_state * 256 + i] = expand_state(new_state_code, i)
 	return new_state | (cutoff_count << 12)
 
@@ -207,13 +205,13 @@ static func union(sets: Array[int], x: int, y: int) -> bool:
 	if x == y:
 		return false
 	
-	var szx: int = sets[x]
-	var szy: int = sets[y]
-	if szx < szy:
-		sets[y] += szx
+	var size_x: int = sets[x]
+	var size_y: int = sets[y]
+	if size_x < size_y:
+		sets[y] += size_x
 		sets[x] = ~y
 	else:
-		sets[x] += szy
+		sets[x] += size_y
 		sets[y] = ~x
 	return true;
 

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Project Primary"
-run/main_scene="uid://c02lttn7lgmj1"
+run/main_scene="uid://da7nx152n4d33"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -23,7 +23,10 @@ GUIDE="*res://addons/guide/guide.gd"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/size/initial_position_type=2
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
@@ -38,4 +41,5 @@ enabled=PackedStringArray("res://addons/guide/plugin.cfg")
 textures/vram_compression/compress_with_gpu=false
 textures/vram_compression/cache_gpu_compressor=false
 textures/lossless_compression/force_png=true
-environment/defaults/default_clear_color=Color(0.301961, 1, 0.301961, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+viewport/hdr_2d=true

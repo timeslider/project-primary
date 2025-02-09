@@ -35,10 +35,11 @@ fog_height_density = 3.0
 script = ExtResource("1_a202f")
 
 [node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.5, 8.015, 3.5)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.5, 10, 2.405)
 fov = 57.1
 script = ExtResource("2_jsk3o")
 move = ExtResource("3_4arys")
+move_speed = 0.063
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, 0.408607, -0.577096, 0, 0.816138, 0.577858, 0.707107, -0.408607, 0.577096, -1.648, 6.575, 8.637)
@@ -47,19 +48,19 @@ projection = 1
 size = 9.102
 
 [node name="HSlider" type="HSlider" parent="."]
-offset_left = 31.0
-offset_top = 120.0
-offset_right = 1718.0
-offset_bottom = 219.0
+offset_left = 26.0
+offset_top = 92.0
+offset_right = 1133.0
+offset_bottom = 191.0
 size_flags_horizontal = 3
 value = 17.0
 rounded = true
 tick_count = 12
 
 [node name="Button" type="Button" parent="."]
-offset_left = 1050.0
+offset_left = 762.0
 offset_top = 25.0
-offset_right = 1131.0
+offset_right = 843.0
 offset_bottom = 70.0
 text = "Go!"
 
@@ -72,30 +73,30 @@ offset_bottom = 241.0
 
 [node name="TextEdit" type="TextEdit" parent="Button"]
 layout_mode = 0
-offset_left = -1026.0
-offset_right = -20.0
+offset_left = -721.0
+offset_right = -46.0
 offset_bottom = 45.0
 
 [node name="Utility" type="Node" parent="."]
 
 [node name="Increase" type="Button" parent="."]
-offset_left = 1172.0
+offset_left = 874.0
 offset_top = 26.0
-offset_right = 1277.0
+offset_right = 979.0
 offset_bottom = 69.0
 text = "+"
 
 [node name="Decrease" type="Button" parent="."]
-offset_left = 1172.0
+offset_left = 874.0
 offset_top = 83.0
-offset_right = 1277.0
+offset_right = 979.0
 offset_bottom = 126.0
 text = "-"
 
 [node name="Playable" type="Button" parent="."]
-offset_left = 1313.0
+offset_left = 999.0
 offset_top = 27.0
-offset_right = 1470.0
+offset_right = 1156.0
 offset_bottom = 81.0
 text = "Playable?"
 
@@ -150,29 +151,29 @@ theme_override_constants/margin_bottom = 30
 [node name="Timer" type="Timer" parent="."]
 
 [node name="StartSlider" type="VSlider" parent="."]
-offset_left = 107.0
-offset_top = 337.0
-offset_right = 134.0
-offset_bottom = 808.0
+offset_left = 50.0
+offset_top = 230.0
+offset_right = 77.0
+offset_bottom = 593.0
 
 [node name="EndSlider" type="VSlider" parent="."]
-offset_left = 1654.0
-offset_top = 291.0
-offset_right = 1670.0
-offset_bottom = 803.0
+offset_left = 1088.0
+offset_top = 215.0
+offset_right = 1106.0
+offset_bottom = 596.0
 
 [node name="StartStateLabel" type="Label" parent="."]
-offset_left = 86.0
-offset_top = 831.0
-offset_right = 360.0
-offset_bottom = 908.0
+offset_left = 102.0
+offset_top = 572.0
+offset_right = 376.0
+offset_bottom = 649.0
 text = "Start index"
 
 [node name="EndStateLabel" type="Label" parent="."]
-offset_left = 1614.0
-offset_top = 830.0
-offset_right = 1888.0
-offset_bottom = 907.0
+offset_left = 932.0
+offset_top = 556.0
+offset_right = 1206.0
+offset_bottom = 633.0
 text = "End index"
 
 [node name="Solution" type="Label" parent="."]
@@ -190,3 +191,9 @@ text = "Left, Right, Right, Up, Down, Right, Left"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.185, 6.645, 3.37)
 visible = false
 script = ExtResource("6_wc5p8")
+
+[node name="IsMoveLabel" type="Label" parent="."]
+offset_left = 492.0
+offset_top = 646.0
+offset_right = 630.0
+offset_bottom = 692.0

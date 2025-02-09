@@ -365,7 +365,7 @@ namespace ProjectPrimary
             }
 
             // The direction is either left or right and you already on the edge
-            if ((direction != Direction.Down && (currentPosition + edge) % 8 == 0))
+            if (direction != Direction.Down && (currentPosition + edge) % 8 == 0)
             {
                 return 0;
             }

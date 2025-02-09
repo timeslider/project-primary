@@ -11,8 +11,6 @@ static var state: int:
 	get ():
 		return get_state()
 
-@onready var h_slider: HSlider = $HSlider
-
 # THis is temp. Please delete
 static var max_polyomino: int = 51016818604894741
 
@@ -21,12 +19,14 @@ enum direction {up, right, down, left}
 
 
 func _ready() -> void:
-	wall_data = 1
+	wall_data = 49340209542762048
 	set_initial_state()
-	print_bitboard()
-
 
 static func get_bitboard_cell_by_index(index: int) -> bool:
+	if index < 0:
+		print("Index was less than 0")
+	if index >= 64:
+		print("Index was greater than 64")
 	assert(index >= 0 and index < 64)
 	return (wall_data & (1 << index)) != 0
 
@@ -63,6 +63,8 @@ static func set_state(existing_state: int) -> void:
 
 
 static func trailing_zero_count(value: int) -> int:
+	if value == 0:
+		return 64
 	var result: int = 0
 	while ((value & 1) == 0):
 		result += 1
@@ -128,6 +130,7 @@ static func set_initial_state() -> void:
 	print("blue was: ", blue)
 	print("Initial state was " + str(state));
 
+# Simplified version of the can move function for calculating the states
 static func can_move(_direction: bitboard.direction, current_position: int) -> int:
 	var direction_vector: int = 0 # Where you are going to land
 	var edge: int = 0
@@ -152,6 +155,6 @@ static func can_move(_direction: bitboard.direction, current_position: int) -> i
 	return direction_vector
 
 
-func _on_h_slider_drag_ended(_value_changed: bool) -> void:
-	print(int(h_slider.ratio * 51016818604894744))
+#func _on_h_slider_drag_ended(_value_changed: bool) -> void:
+	#print(int(h_slider.ratio * 51016818604894744))
 	

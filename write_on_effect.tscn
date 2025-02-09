@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4avd7stf8v54"]
+
+[ext_resource type="Script" uid="uid://uxfwc7a45f0r" path="res://write_on_effect.gd" id="1_utwoc"]
+
+[node name="WriteOnEffect" type="Node2D" node_paths=PackedStringArray("line")]
+script = ExtResource("1_utwoc")
+line = NodePath("Line2D")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(103, 157, 354, 59, 672, 535, 986, 214)
