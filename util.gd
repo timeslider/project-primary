@@ -81,42 +81,27 @@ static func make_gen_state(next_row_number: int, checker_state: int, have_island
 				tlist.append(new_gen)
 	return new_gen_state
 
-#func get_nth_polyomino(n: int) -> int:
-	#var state: int = 0
-#public static ulong GetNthPolimyno(ulong n)
-#{
-	#int state = 0;
-	#ulong poly = 0;
-	#for (int row = 0; row < 8; ++row)
-	#{
-		#var tlist = genStates[state];
+func get_nth_polyomino(n: int) -> int:
+	var state: int = 0
+	var poly: int = 0
+	for row in range(0, 8):
+		var tlist = gen_states[state]
 		#// binary search to find the transition that contains the nth path
-		#int hi = tlist.Count - 1;
-		#int lo = 0;
-		#while (hi > lo)
-		#{
-			#int test = (lo + hi) >> 1;
-			#if (n >= tlist[test].cumulativePaths)
-			#{
-				#// test is too low
-				#lo = test + 1;
-			#}
-			#else
-			#{
-				#// test is high enough
-				#hi = test;
-			#}
-		#}
-		#if (lo > 0)
-		#{
-			#n -= tlist[lo - 1].cumulativePaths;
-		#}
-		#var transition = tlist[lo];
-		#poly = (poly << 8) | transition.nextRow;
-		#state = transition.nextState;
-	#}
-	#return poly;
-#}
+		var hi: int = tlist.Size - 1
+		var lo: int = 0
+		while (hi > lo):
+			var test: int = (lo + hi) >> 1
+			if n >= tlist[test].cumulativePaths:
+				lo = test + 1
+			else:
+				hi = test
+		if lo > 0:
+			n -= tlist[lo - 1].cumulativePaths
+		var transition = tlist[lo]
+		poly = (poly << 8) | transition.nextRow
+		state = transition.nextState
+	return poly
+
 #
 #
 #
@@ -131,9 +116,9 @@ static func make_gen_state(next_row_number: int, checker_state: int, have_island
 ##  0 => water
 ##  x => island number x.  new islands are numbered from left to right
 
-#/// <param name="stateCode">The state code to expand.</param>
-#/// <param name="nextrow">the lower 8 bits represent the next row.  0-bits are land</param>
-#/// <returns>The transition code for the transition from stateCode to nextrow</returns>
+# <param name="stateCode">The state code to expand.</param>
+# <param name="nextrow">the lower 8 bits represent the next row.  0-bits are land</param>
+# <returns>The transition code for the transition from stateCode to nextrow</returns>
 static func expand_state(state_code: String, next_row: int) -> int:
 	var sets: Array[int] = []
 	#sets.resize(8) This is not be necessary

@@ -115,7 +115,7 @@ namespace ProjectPrimary
             blueGoalInstance.GlobalPosition = new Godot.Vector3(100, 0, 0);
             #endregion
 
-
+            //GD.Print(Util.GetNValue(17925305085690880771));
             int startState = Util.ExpandState("00000000", (byte)0xFF);
             Util.MakeGenState(0, startState, 0);
             GD.Print($"Gen state number: {Util.genStateNumbers.Count}");

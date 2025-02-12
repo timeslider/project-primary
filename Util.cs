@@ -156,6 +156,36 @@ namespace ProjectPrimary
         }
 
 
+        public static ulong GetNValue(ulong poly)
+        {
+            int state = 0;
+            ulong n = 0;
+
+            for (int row = 0; row < 8; ++row)
+            {
+                byte currentRow = (byte)((poly >> ((7 - row) * 8)) & 0xFF);
+                var tlist = genStates[state];
+
+                // Find the transition that matches the current row
+                int transitionIndex = tlist.FindIndex(t => t.nextRow == currentRow);
+
+                if (transitionIndex < 0)
+                    throw new ArgumentException("Invalid polyomino");
+
+                // Add cumulative paths from previous transitions
+                if (transitionIndex > 0)
+                {
+                    n += tlist[transitionIndex - 1].cumulativePaths;
+                }
+
+                // Update state for next iteration
+                state = tlist[transitionIndex].nextState;
+            }
+
+            return n;
+        }
+
+
 
 
 

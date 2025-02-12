@@ -32,8 +32,9 @@ func _ready() -> void:
 			index = row * 8 + col
 			temp.append(puzzle[index])
 		puzzle_2d_array.append(temp)
-	bitboard.wall_data = -521438988018670845
+	bitboard.wall_data = 72431935112174856 # Puzzle 1215799526789426
 	print("getting bitboard cell by index", bitboard.get_bitboard_cell_by_index(10))
+	
 	
 
 
@@ -147,49 +148,49 @@ func can_move(direction: bitboard.direction, current_position: int) -> int:
 	
 	# The color's position would be larger than the size of the board
 	if direction_vector > 63:
-		print("direction_vector was greater than 64")
+		#print("direction_vector was greater than 64")
 		return FAIL
-	else:
-		print("direction_vector was less than 64")
+	#else:
+		#print("direction_vector was less than 64")
 	
 	if direction_vector < 0:
-		print("direction_vector was less than 0")
+		#print("direction_vector was less than 0")
 		return FAIL
-	else:
-		print("direction_vector was greater than 0")
+	#else:
+		#print("direction_vector was greater than 0")
 	
 	# The direction is either left or right and you're already on the edge
 	if (direction == bitboard.direction.left):
-		print("direction was left or right but you're already on the edge")
+		#print("direction was left or right but you're already on the edge")
 		if (current_position + edge) % 8 == 0:
-			print("You are already on the edge")	
+			#print("You are already on the edge")	
 			return FAIL
-		else:
-			print("You are not on the edge")
-	else:
-		print("direction was not left")
+		#else:
+			#print("You are not on the edge")
+	#else:
+		#print("direction was not left")
 		
 	if (direction == bitboard.direction.right):
-		print("direction was left or right but you're already on the edge")
+		#print("direction was left or right but you're already on the edge")
 		if (current_position + edge) % 8 == 0:
-			print("You are already on the edge")	
+			#print("You are already on the edge")	
 			return FAIL
-		else:
-			print("You are not on the edge")
-	else:
-		print("direction was not right")
+		#else:
+			#print("You are not on the edge")
+	#else:
+		#print("direction was not right")
 	
 	# A wall is there
 	if bitboard.get_bitboard_cell_by_index(direction_vector) == true:
-		print("There is a wall at index: ", direction_vector)
+		#print("There is a wall at index: ", direction_vector)
 		return FAIL
-	else:
-		print("A wall was not there.")
+	#else:
+		#print("A wall was not there.")
 
 	for player in player_tiles:
 		var index: int = player.position[2] * 8 + player.position[0]
 		if direction_vector == index:
-			print("Another player is already here")
+			#print("Another player is already here")
 			return FAIL
 
 	return direction_vector
@@ -203,3 +204,8 @@ func can_move(direction: bitboard.direction, current_position: int) -> int:
 				#print(player.name, " is at index: ", str(index))
 				#if can_move(bitboard.direction.right, index) > 0:
 					#player.position += Vector3(1.0, 0.0, 0.0)
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_released("test"):
+		print("Test pressed.")
