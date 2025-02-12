@@ -14,8 +14,8 @@ var HSliderTest = load("res://HSliderTest.cs")
 var HSlider_node = HSliderTest.new()
 var is_moving = false:
 	set(value):
-		is_move_label.text = "is_moving: " + str(value)
-		return value
+		print(is_moving)
+		is_moving = value
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,8 +41,8 @@ func _ready() -> void:
 # TODO: Need to figure out how to move them smoothly.
 # I'm thinking of using a dummy node or a dictionary[Node, bool] where bool is
 # it can move or not.
-func _physics_process(delta: float) -> void:
-	if(move.is_triggered()  and is_moving == false):
+func _process(delta: float) -> void:
+	if(move.is_triggered() and is_moving == false):
 		is_moving = true
 		
 		var original_positions = {}

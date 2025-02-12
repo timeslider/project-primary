@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://c02lttn7lgmj1"]
+[gd_scene load_steps=15 format=3 uid="uid://c02lttn7lgmj1"]
 
 [ext_resource type="Script" uid="uid://culpkngyj7a3a" path="res://HSliderTest.cs" id="1_a202f"]
+[ext_resource type="Texture2D" uid="uid://ddwt5dglitg54" path="res://world_resourses/world_1/gradient_2D.tres" id="2_4arys"]
 [ext_resource type="Script" uid="uid://dtg2gf4nngmnr" path="res://move.gd" id="2_jsk3o"]
 [ext_resource type="Resource" uid="uid://gsh47x82llwr" path="res://GUIDE/move-tile-guide-action.tres" id="3_4arys"]
 [ext_resource type="Script" uid="uid://bge4uc4c13t3m" path="res://fps_counter.gd" id="3_a0tk4"]
@@ -22,17 +23,44 @@ energy_multiplier = 0.25
 sky_material = SubResource("ProceduralSkyMaterial_i5arm")
 
 [sub_resource type="Environment" id="Environment_jsk3o"]
-background_mode = 2
+background_mode = 3
 sky = SubResource("Sky_jka67")
-fog_enabled = true
+ambient_light_source = 2
+ambient_light_color = Color(0.18, 0.18, 0.18, 1)
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 2.0
+glow_levels/3 = 4.0
+glow_levels/4 = 8.0
+glow_levels/5 = 16.0
+glow_levels/6 = 32.0
+glow_levels/7 = 64.0
+glow_intensity = 1.0
+glow_strength = 0.28
+glow_blend_mode = 1
 fog_mode = 1
 fog_light_color = Color(0, 0.5175, 0.69, 1)
 fog_density = 1.0
 fog_height = -1.0
 fog_height_density = 3.0
 
+[sub_resource type="SphereMesh" id="SphereMesh_4arys"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6iypd"]
+albedo_color = Color(100, 100, 100, 1)
+roughness = 0.25
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_a202f")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4arys")
 
 [node name="Camera3D2" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.5, 10, 2.405)
@@ -42,7 +70,7 @@ move = ExtResource("3_4arys")
 move_speed = 0.063
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.707107, 0.408607, -0.577096, 0, 0.816138, 0.577858, 0.707107, -0.408607, 0.577096, -1.648, 6.575, 8.637)
+transform = Transform3D(0.707107, 0.408607, -0.577097, 0, 0.816138, 0.577857, 0.707107, -0.408607, 0.577097, -1.648, 6.575, 8.637)
 visible = false
 projection = 1
 size = 9.102
@@ -108,14 +136,23 @@ offset_bottom = 1071.0
 text = "<null>"
 script = ExtResource("3_a0tk4")
 
-[node name="Puzzle" type="Node3D" parent="."]
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jsk3o")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.436194, 0.570828, -0.695622, 0.303253, 0.82107, 0.483614, 0.847215, 0, -0.531251, 3.63583, 1.32981, 5.71938)
+[node name="Puzzle" type="Node3D" parent="."]
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.59303, -0.385118, -4.76138e-08, -0.544639, 0.838671, -0.707107, -0.59303, -0.385118, 0, 1.44877, 0)
+light_color = Color(1, 1, 0.686275, 1)
 shadow_enabled = true
+shadow_opacity = 0.5
+sky_mode = 1
+
+[node name="FillLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 3.63583, 1.32981, 5.71938)
+visible = false
+light_energy = 0.25
+shadow_opacity = 0.49
 
 [node name="StartState" type="ScrollContainer" parent="."]
 offset_left = 134.0
@@ -192,7 +229,15 @@ visible = false
 script = ExtResource("6_wc5p8")
 
 [node name="IsMoveLabel" type="Label" parent="."]
-offset_left = 492.0
-offset_top = 646.0
-offset_right = 630.0
-offset_bottom = 692.0
+offset_left = 32.0
+offset_top = 659.0
+offset_right = 170.0
+offset_bottom = 705.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Dummy test"
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.67314, 0)
+visible = false
+mesh = SubResource("SphereMesh_4arys")
+material = SubResource("StandardMaterial3D_6iypd")
