@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0k32dp3x26r0"]
+
+[ext_resource type="PackedScene" uid="uid://cyp3whnvm7wmw" path="res://meshes/blue-goal.glb" id="1_xewfa"]
+[ext_resource type="Texture2D" uid="uid://b58ar222wurm7" path="res://Gradient Texture.png" id="2_fngvh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iljct"]
+albedo_texture = ExtResource("2_fngvh")
+
+[sub_resource type="Environment" id="Environment_xewfa"]
+background_mode = 4
+background_color = Color(0.347817, 0.347817, 0.347817, 1)
+
+[sub_resource type="Gradient" id="Gradient_xt42k"]
+colors = PackedColorArray(0.5508, 0.81, 0.58104, 1, 0.803118, 0.22908, 0.276047, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wl6wr"]
+gradient = SubResource("Gradient_xt42k")
+fill_to = Vector2(1, 1)
+
+[node name="blue-goal2" instance=ExtResource("1_xewfa")]
+
+[node name="blue-goal" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_iljct")
+
+[node name="Camera3D" type="Camera3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.858002, 0.513646, 0, -0.513646, 0.858002, 0, 0.223761, 0.369321)
+environment = SubResource("Environment_xewfa")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="2"]
+layer = -128
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" index="0"]
+z_index = -4096
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_wl6wr")

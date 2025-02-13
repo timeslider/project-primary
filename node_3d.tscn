@@ -178,6 +178,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 visible = false
 
 [node name="DebugLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="GuideDebugger" parent="DebugLayer" instance=ExtResource("8_jsk3o")]
 theme_override_constants/margin_left = 30

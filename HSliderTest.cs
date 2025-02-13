@@ -56,6 +56,8 @@ namespace ProjectPrimary
         private Label startStateLabel;
         private Label endStateLabel;
 
+        Tween tween;
+
         public ulong NthPolyomino
         {
             get { return _nthPolyomino; }
@@ -410,25 +412,29 @@ namespace ProjectPrimary
             CheckPlayable();
             Random random = new Random();
 
+            if(tween != null)
+            {
+                tween.Kill();
+            }
             for (int row = 0; row < 8; row++)
             {
                 for (int col = 0; col < 8; col++)
                 {
                     if (GetBitboardCell(WallData, col, row) == true)
                     {
-                        var Tween = CreateTween();
-                        Tween.SetEase(Tween.EaseType.Out);
-                        Tween.SetTrans(Tween.TransitionType.Cubic);
-                        Tween.TweenProperty(GroundTiles[col, row], "position:y", 0.5, 0.5f);
+                        tween = CreateTween();
+                        tween.SetEase(Tween.EaseType.Out);
+                        tween.SetTrans(Tween.TransitionType.Cubic);
+                        tween.TweenProperty(GroundTiles[col, row], "position:y", 0.5, 0.5f);
                         //Tween.TweenProperty(GroundTiles[col, row], "", 1, 2);
                     }
                     else
                     {
-                        var Tween = CreateTween();
-                        Tween.SetEase(Tween.EaseType.Out);
-                        Tween.SetTrans(Tween.TransitionType.Bounce);
-                        Tween.TweenInterval(random.NextDouble() * 0.25f);
-                        Tween.TweenProperty(GroundTiles[col, row], "position:y", 0.0, 0.5f);
+                        tween = CreateTween();
+                        tween.SetEase(Tween.EaseType.Out);
+                        tween.SetTrans(Tween.TransitionType.Bounce);
+                        tween.TweenInterval(random.NextDouble() * 0.25f);
+                        tween.TweenProperty(GroundTiles[col, row], "position:y", 0.0, 0.5f);
                     }
 
                 }

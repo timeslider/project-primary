@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 GUIDE="*res://addons/guide/guide.gd"
 Util="*res://util.gd"
+Signals="*res://signals.gd"
 
 [display]
 
@@ -51,4 +52,3 @@ textures/vram_compression/compress_with_gpu=false
 textures/vram_compression/cache_gpu_compressor=false
 textures/lossless_compression/force_png=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
-viewport/hdr_2d=true

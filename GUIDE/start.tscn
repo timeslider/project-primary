@@ -1,36 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://da7nx152n4d33"]
+[gd_scene load_steps=7 format=3 uid="uid://da7nx152n4d33"]
 
 [ext_resource type="Script" uid="uid://bsxuuuqck0rlo" path="res://splash_screen.gd" id="1_tv0wy"]
 [ext_resource type="Texture2D" uid="uid://b58ar222wurm7" path="res://Gradient Texture.png" id="2_6uxie"]
 [ext_resource type="PackedScene" uid="uid://c02lttn7lgmj1" path="res://node_3d.tscn" id="2_vpi3n"]
+[ext_resource type="Shader" uid="uid://bp2bfdeblwtlu" path="res://radial_wipe.gdshader" id="3_4mrdr"]
 [ext_resource type="Texture2D" uid="uid://esfevbtlfv1i" path="res://icon.svg" id="3_vpi3n"]
-[ext_resource type="Shader" uid="uid://22fk5n2vtepr" path="res://GUIDE/HDR_test.gdshader" id="5_4mrdr"]
-[ext_resource type="Texture2D" uid="uid://b4do6v6g1wc4s" path="res://HDR texture test.png" id="6_2by2w"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2ka3"]
-shader = ExtResource("5_4mrdr")
-shader_parameter/color1 = Color(0, 0, 0, 1)
-shader_parameter/color2 = Color(0, 0, 0, 1)
-shader_parameter/threshold = 1.0
-shader_parameter/intensity = -0.045
-shader_parameter/opacity = 1.0
-shader_parameter/glow_color = Color(8.287, 11.602, 15.47, 1)
-
-[sub_resource type="Environment" id="Environment_b5wut"]
-background_mode = 3
-glow_enabled = true
-glow_levels/1 = 1.0
-glow_levels/2 = 1.0
-glow_levels/4 = 1.0
-glow_levels/6 = 1.0
-glow_levels/7 = 1.0
-glow_intensity = 6.51
-glow_strength = 2.0
-glow_bloom = 1.0
-glow_blend_mode = 0
-glow_hdr_threshold = 0.0
-glow_hdr_scale = 2.21
-glow_hdr_luminance_cap = 0.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vpi3n"]
+shader = ExtResource("3_4mrdr")
+shader_parameter/current_angle = 6.49
+shader_parameter/start_angle = 1.571
+shader_parameter/flip = true
 
 [node name="Control" type="Control" node_paths=PackedStringArray("splash_screen_container")]
 layout_mode = 3
@@ -65,19 +45,6 @@ layout_mode = 2
 texture = ExtResource("2_6uxie")
 
 [node name="Screen2" type="TextureRect" parent="SplashScreenContainer"]
-modulate = Color(0, 1, 1, 1)
+material = SubResource("ShaderMaterial_vpi3n")
 layout_mode = 2
 texture = ExtResource("3_vpi3n")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-texture_filter = 1
-material = SubResource("ShaderMaterial_y2ka3")
-layout_mode = 0
-offset_left = 543.0
-offset_top = 241.0
-offset_right = 743.0
-offset_bottom = 441.0
-texture = ExtResource("6_2by2w")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_b5wut")

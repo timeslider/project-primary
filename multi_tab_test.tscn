@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cuturt0557n3n"]
+[gd_scene load_steps=16 format=3 uid="uid://cuturt0557n3n"]
 
+[ext_resource type="Shader" uid="uid://bp2bfdeblwtlu" path="res://radial_wipe.gdshader" id="1_2uqpc"]
 [ext_resource type="Shader" uid="uid://bi16ipiw0j3qy" path="res://multi_tab_test.gdshader" id="1_aj33t"]
 [ext_resource type="Script" uid="uid://b43b32spyaok" path="res://color_rect.gd" id="2_fh4gp"]
 [ext_resource type="Script" uid="uid://4kknp8e3p340" path="res://world_environment.gd" id="3_fh4gp"]
-[ext_resource type="Theme" uid="uid://dot0gi1yoqmrl" path="res://ui_theme.tres" id="3_kg8pb"]
+[ext_resource type="Theme" uid="uid://bganbh0ijrnt7" path="res://ui_theme.tres" id="3_kg8pb"]
 
 [sub_resource type="Shader" id="Shader_kg8pb"]
 code = "shader_type canvas_item;
@@ -24,6 +25,12 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2uqpc"]
 shader = SubResource("Shader_kg8pb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qxig7"]
+shader = ExtResource("1_2uqpc")
+shader_parameter/current_angle = 1.59
+shader_parameter/start_angle = 6.92
+shader_parameter/flip = false
 
 [sub_resource type="Gradient" id="Gradient_aj33t"]
 interpolation_color_space = 2
@@ -66,6 +73,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_qxig7")
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 551.0
+offset_top = 203.0
+offset_right = 651.0
+offset_bottom = 303.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_glnid")

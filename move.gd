@@ -42,7 +42,7 @@ func _ready() -> void:
 # TODO: Need to figure out how to move them smoothly.
 # I'm thinking of using a dummy node or a dictionary[Node, bool] where bool is
 # it can move or not.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if(move.is_triggered() and is_moving == false):
 		is_moving = true
 		

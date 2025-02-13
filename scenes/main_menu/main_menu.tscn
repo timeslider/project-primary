@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgbds734samwg"]
+
+[ext_resource type="Script" uid="uid://kkoafvbx4ym" path="res://scenes/main_menu/main_menu.gd" id="1_0ebjn"]
+[ext_resource type="Theme" uid="uid://bganbh0ijrnt7" path="res://ui_theme.tres" id="2_ob46e"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uqeha"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wem23"]
+width = 1920
+height = 1080
+seamless = true
+noise = SubResource("FastNoiseLite_uqeha")
+
+[sub_resource type="SystemFont" id="SystemFont_3ovsr"]
+font_names = PackedStringArray("Impact")
+
+[sub_resource type="SystemFont" id="SystemFont_5seab"]
+font_names = PackedStringArray("Impact")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0ebjn")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_wem23")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Separater" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 24
+theme_override_fonts/font = SubResource("SystemFont_3ovsr")
+theme_override_font_sizes/font_size = 64
+text = "Game Title"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_ob46e")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="StartButton" type="Button" parent="MarginContainer/CenterContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_5seab")
+theme_override_font_sizes/font_size = 24
+text = "Start Game"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/CenterContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_5seab")
+theme_override_font_sizes/font_size = 24
+text = "Exit"

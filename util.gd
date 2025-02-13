@@ -1,9 +1,64 @@
 extends Node
 
-class gen_transition_info:
-	var next_row
-	var next_state
-	var cumulative_paths
+class GenTransitionInfo:
+	var next_row: int
+	var next_state: int
+	var cumulative_paths: int
+	
+	func _init(_next_row = 0, _next_state = 0, _cumulative_paths = 0):
+		next_row = _next_row
+		next_state = _next_state
+		cumulative_paths = _cumulative_paths
+
+#func save_gen_states(file_path: String, gen_states: Array):
+	#var file = FileAccess.open(file_path, FileAccess.WRITE)
+	#if not file:
+		#print("Error opening file for writing")
+		#return
+	#file
+	## First write the number of states (outer array size)
+	#file.store_32(gen_states.size())
+	#
+	## For each state's transition list
+	#for tlist in gen_states:
+		## Write number of transitions in this state
+		#file.store_8(tlist.size())
+		## Write each transition
+		#for state in tlist:
+			#file.store_8(state.next_row)
+			#file.store_16(state.next_state)
+			#file.store_64(state.cumulative_paths)
+	#
+	#file.close()
+	#print("Saved gen_states successfully.")
+	
+
+func load_gen_states(file_path: String) -> Array:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if not file:
+		print("Error opening file for reading")
+		return []
+	
+	var _gen_states: Array = []
+	# Read number of states
+	var state_count = file.get_16()
+
+	
+	# For each state
+	for _i in range(state_count):
+		var tlist: Array[GenTransitionInfo] = []
+		# Read number of transitions in this state
+		var transition_count = file.get_16()
+		# Read each transition
+		for _j in range(transition_count):
+			var _next_row = file.get_8()
+			var _next_state = file.get_16()
+			var _cumulative_paths = file.get_64()
+			tlist.append(GenTransitionInfo.new(_next_row, _next_state, _cumulative_paths))
+		_gen_states.append(tlist)
+	
+	file.close()
+	return _gen_states
 
 ## checker_state + next_row_number * 4096 + have_islands*65536 -> generator_state
 static var gen_state_numbers: Dictionary[int, int] = {}
@@ -29,14 +84,16 @@ static var transitions: Array = []
 const ALL_WATER = 0xFF
 
 func _ready() -> void:
-	bitboard.wall_data = 49340209542762048
-	expand_state("00000000", 0xFF)
-	make_gen_state(0, 0, 0)
-	print(gen_state_numbers.size())
-	print(gen_states.size())
-	print(state_numbers.size())
-	print(transitions.size())
+	#expand_state("00000000", 0xFF)
+	#make_gen_state(0, 0, 0)
+	gen_states = load_gen_states("res://gen_states.bin")
+	var count: int = 0
+	for tlist in gen_states:
+		count += tlist.size()
 	
+	print("There are ", count, " tlist.")
+	
+	print("The 100th polyomino is: ", get_nth_polyomino(100))
 	
 
 ## Fill out a state in the generator table if it doesn't exist
@@ -47,59 +104,59 @@ static func make_gen_state(next_row_number: int, checker_state: int, have_island
 		return gen_state_numbers[state_key]
 	var new_gen_state: int = gen_states.size()
 	gen_state_numbers[state_key] = new_gen_state
-	var tlist: Array[gen_transition_info] = []
+	var tlist: Array[GenTransitionInfo] = []
 	gen_states.append(tlist)
 	var transitions_offset: int = checker_state * 256
 	var total_paths: int = 0
 	for i in range(0, 256):
 		var transition: int = transitions[transitions_offset + i]
 		var next_checker_state: int = transition & 0x0FFF
-		var new_inslands: int = (transition >> 12) + have_islands
-		if new_inslands > (1 if ALL_WATER == i else 0):
+		var new_inlands: int = (transition >> 12) + have_islands
+		if new_inlands > (1 if i == ALL_WATER else 0):
 			# we are destined to get too many islands this way.
 			continue;
 		if next_row_number == 7:
 			# all transitions for row 7 have to to the accept state
 			# calculate total number of islands
-			new_inslands += transitions[next_checker_state * 256 + ALL_WATER] >> 12
-			if new_inslands  == 1:
+			new_inlands += transitions[next_checker_state * 256 + ALL_WATER] >> 12
+			if new_inlands  == 1:
 				total_paths += 1
-				var new_gen: gen_transition_info = gen_transition_info.new()
+				var new_gen: GenTransitionInfo = GenTransitionInfo.new()
 				new_gen.next_row = i
 				new_gen.next_state = 0
 				new_gen.cumulative_paths = total_paths
 				tlist.append(new_gen)
 		else:
-			var next_gen_state: int = make_gen_state(next_row_number + 1, next_checker_state, new_inslands)
+			var next_gen_state: int = make_gen_state(next_row_number + 1, next_checker_state, new_inlands)
 			var new_paths: int = gen_states[next_gen_state][-1].cumulative_paths
 			if new_paths > 0:
 				total_paths += new_paths
-				var new_gen: gen_transition_info = gen_transition_info.new()
+				var new_gen: GenTransitionInfo = GenTransitionInfo.new()
 				new_gen.next_row = i
 				new_gen.next_state = next_gen_state
 				new_gen.cumulative_paths = total_paths
 				tlist.append(new_gen)
 	return new_gen_state
 
-func get_nth_polyomino(n: int) -> int:
+static func get_nth_polyomino(n: int) -> int:
 	var state: int = 0
 	var poly: int = 0
 	for row in range(0, 8):
-		var tlist = gen_states[state]
+		var tlist: Array[GenTransitionInfo] = gen_states[state]
 		#// binary search to find the transition that contains the nth path
-		var hi: int = tlist.Size - 1
+		var hi: int = tlist.size() - 1
 		var lo: int = 0
-		while (hi > lo):
+		while lo < hi:
 			var test: int = (lo + hi) >> 1
-			if n >= tlist[test].cumulativePaths:
+			if n >= tlist[test].cumulative_paths:
 				lo = test + 1
 			else:
 				hi = test
 		if lo > 0:
-			n -= tlist[lo - 1].cumulativePaths
+			n -= tlist[lo - 1].cumulative_paths
 		var transition = tlist[lo]
-		poly = (poly << 8) | transition.nextRow
-		state = transition.nextState
+		poly = (poly << 8) | transition.next_row
+		state = transition.next_state
 	return poly
 
 #
@@ -146,7 +203,7 @@ static func expand_state(state_code: String, next_row: int) -> int:
 	var cutoff_count: int = 0
 	for i in range(0, top_island_count):
 		if links[i] < 0:
-			cutoff_count += 1 # This was originally ++cutoffCount
+			cutoff_count += 1
 	
 	var next_set: int = 49
 	#char nextSet = '1';
@@ -164,10 +221,9 @@ static func expand_state(state_code: String, next_row: int) -> int:
 				new_chars[i] = next_set
 				next_set += 1
 				links[_set] = i
-	var new_state_code: String
+	var new_state_code: String = ""
 	for _char in new_chars:
 		new_state_code += char(_char)
-	#string newStateCode = new string(newChars);
 	
 	if state_numbers.has(new_state_code):
 		return state_numbers[new_state_code] | (cutoff_count << 12)
@@ -213,13 +269,12 @@ static func find(sets: Array[int], s: int) -> int:
 		sets[s] = 1
 		return s
 
-#/// <summary>
-#/// Gets the value of the bool at position (x, y)
-#/// </summary>
-#/// <param name="bitBoard">The bitboard to query.</param>
-#/// <param name="col">The 0-indexed column value.</param>
-#/// <param name="row">The 0-indexed row value.</param>
-#/// <returns></returns>
+
+## Gets the value of the bool at position (x, y)
+## @param param_name bitBoard The bitboard to query
+## <param name="col">The 0-indexed column value.</param>
+## <param name="row">The 0-indexed row value.</param>
+## <returns></returns>
 #public static bool GetBitboardCell(ulong bitBoard, int col, int row)
 #{
 #

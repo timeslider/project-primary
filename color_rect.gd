@@ -1,6 +1,6 @@
 extends ColorRect
 
-const UI_THEME = preload("uid://dot0gi1yoqmrl")
+const UI_THEME = preload("uid://bganbh0ijrnt7")
 var tween
 
 # Called when the node enters the scene tree for the first time.
