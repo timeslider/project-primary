@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgbds734samwg"]
+[gd_scene load_steps=8 format=3 uid="uid://bgbds734samwg"]
 
 [ext_resource type="Script" uid="uid://kkoafvbx4ym" path="res://scenes/main_menu/main_menu.gd" id="1_0ebjn"]
 [ext_resource type="Theme" uid="uid://bganbh0ijrnt7" path="res://ui_theme.tres" id="2_ob46e"]
+[ext_resource type="Script" uid="uid://mqkrpp545g7y" path="res://scenes/main_menu/main_menu_sounds.gd" id="3_uqeha"]
+[ext_resource type="AudioStream" uid="uid://dmd5jhxfv17fh" path="res://Audio/drop_002.ogg" id="4_wem23"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_uqeha"]
 
@@ -14,9 +16,6 @@ noise = SubResource("FastNoiseLite_uqeha")
 [sub_resource type="SystemFont" id="SystemFont_3ovsr"]
 font_names = PackedStringArray("Impact")
 
-[sub_resource type="SystemFont" id="SystemFont_5seab"]
-font_names = PackedStringArray("Impact")
-
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -27,6 +26,7 @@ grow_vertical = 2
 script = ExtResource("1_0ebjn")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,45 +48,82 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_ob46e")
+theme_type_variation = &"MainMenuPanel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 60
 
-[node name="Separater" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Separater" type="Control" parent="MarginContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="GameTitle" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="GameTitle" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 24
 theme_override_fonts/font = SubResource("SystemFont_3ovsr")
 theme_override_font_sizes/font_size = 64
-text = "Game Title"
+text = "Primary"
 horizontal_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
 theme = ExtResource("2_ob46e")
+theme_type_variation = &"MainMenuPanel"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer"]
+texture_filter = 1
 layout_mode = 2
-theme_override_constants/separation = 24
+theme = ExtResource("2_ob46e")
+theme_type_variation = &"MainMenuVBoxContainer"
+theme_override_constants/separation = 0
 alignment = 1
+script = ExtResource("3_uqeha")
 
-[node name="StartButton" type="Button" parent="MarginContainer/CenterContainer/MarginContainer/VBoxContainer"]
+[node name="StartButton" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_5seab")
+theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 24
-text = "Start Game"
+text = "continue()"
 
-[node name="ExitButton" type="Button" parent="MarginContainer/CenterContainer/MarginContainer/VBoxContainer"]
+[node name="StartButton2" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_5seab")
+theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 24
-text = "Exit"
+text = "new_game()"
+
+[node name="StartButton3" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 24
+text = "load_game()"
+
+[node name="StartButton4" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 24
+text = "settings()"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 24
+text = "quit_to_desktop()"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+stream = ExtResource("4_wem23")

@@ -7,6 +7,7 @@ using System.Net.Security;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace ProjectPrimary
@@ -420,6 +421,11 @@ namespace ProjectPrimary
             }
             GD.Print(sb.ToString());
         }
+
+        private List<int> states = new List<int>();
+        private Dictionary<int, int> lookupTable = new Dictionary<int, int>();
+
+
     }
 }
 

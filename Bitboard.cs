@@ -11,6 +11,7 @@ using static ProjectPrimary.Util;
 using static Godot.TextServer;
 using Godot;
 using System.Threading;
+using System.Diagnostics;
 
 namespace ProjectPrimary
 {
@@ -475,6 +476,16 @@ namespace ProjectPrimary
             return GetState();
         }
 
+        /// <summary>
+        /// Given a direction, return a new state with the direction applied. Uses a lookup table.
+        /// </summary>
+        /// <param name="direction">The direction to try to move in</param>
+        /// <returns>A new state</returns>
+        private static int MoveToNewStateLookup(Direction direction)
+        {
+
+        }
+
 
 
 
@@ -556,7 +567,7 @@ namespace ProjectPrimary
         /// <returns>A dictionary of type int, list where int is a new state and list contains all the moves needed to go from the inital state to the new state</returns>
         public static async Task<List<int>> StatesAsync()
         {
-
+            Stopwatch sw = Stopwatch.StartNew();
             return await Task.Run(() =>
             {
                 GD.Print("StatesAsync method was ran again...");
@@ -603,6 +614,7 @@ namespace ProjectPrimary
                 SetState(states[0]);
                 GD.Print($"This is state[0]. There are {states.Count} states.");
                 PrintBitboard();
+                GD.Print($"The time spend finding states = {sw.ElapsedMilliseconds} seconds.");
                 return states;
             });
         }

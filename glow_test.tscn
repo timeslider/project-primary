@@ -22,5 +22,5 @@ environment = SubResource("Environment_8kfqt")
 
 [node name="Line2D" type="Line2D" parent="."]
 position = Vector2(17, 108)
-points = PackedVector2Array(60, 29, 203, 204, 360, 77, 516, 157, 848, 41)
+points = PackedVector2Array(60, 29, 203, 204, 360, 82, 847, 27, 1158, 317)
 default_color = Color(0, 0.717647, 1, 1)

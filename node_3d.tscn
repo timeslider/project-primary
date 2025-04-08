@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://culpkngyj7a3a" path="res://HSliderTest.cs" id="1_a202f"]
 [ext_resource type="Texture2D" uid="uid://ddwt5dglitg54" path="res://world_resourses/world_1/gradient_2D.tres" id="2_4arys"]
-[ext_resource type="Script" uid="uid://dtg2gf4nngmnr" path="res://move.gd" id="2_jsk3o"]
 [ext_resource type="Resource" uid="uid://gsh47x82llwr" path="res://GUIDE/move-tile-guide-action.tres" id="3_4arys"]
 [ext_resource type="Script" uid="uid://bge4uc4c13t3m" path="res://fps_counter.gd" id="3_a0tk4"]
+[ext_resource type="Script" uid="uid://bev75hd6nywhu" path="res://move_new.gd" id="3_jsk3o"]
 [ext_resource type="PackedScene" uid="uid://ctvas7fra783q" path="res://Blender Meshes/dummy-stage.blend" id="3_r3fl7"]
 [ext_resource type="PackedScene" uid="uid://balowbilok4f0" path="res://Blender Meshes/red-tile.blend" id="5_i5arm"]
 [ext_resource type="Script" uid="uid://clpxcmmh6e1sm" path="res://rotation-test.gd" id="6_wc5p8"]
@@ -65,9 +65,8 @@ texture = ExtResource("2_4arys")
 [node name="Camera3D2" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.5, 10, 2.405)
 fov = 57.1
-script = ExtResource("2_jsk3o")
+script = ExtResource("3_jsk3o")
 move = ExtResource("3_4arys")
-move_speed = 0.063
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, 0.408607, -0.577097, 0, 0.816138, 0.577857, 0.707107, -0.408607, 0.577097, -1.648, 6.575, 8.637)

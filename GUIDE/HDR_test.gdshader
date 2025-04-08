@@ -17,7 +17,7 @@ void fragment() {
 	float distance_second = length(pixel_color - color2);
 	vec4 modified_glow = glow_color;
 	modified_glow.a = opacity;
-	
+
 	if (distance < threshold || distance_second < threshold){
 		COLOR = mix(pixel_color, modified_glow * intensity, modified_glow.a);
 	}

@@ -1,5 +1,4 @@
 extends Node
-
 class GenTransitionInfo:
 	var next_row: int
 	var next_state: int
@@ -84,16 +83,18 @@ static var transitions: Array = []
 const ALL_WATER = 0xFF
 
 func _ready() -> void:
+	pass
 	#expand_state("00000000", 0xFF)
 	#make_gen_state(0, 0, 0)
-	gen_states = load_gen_states("res://gen_states.bin")
-	var count: int = 0
-	for tlist in gen_states:
-		count += tlist.size()
-	
-	print("There are ", count, " tlist.")
-	
-	print("The 100th polyomino is: ", get_nth_polyomino(100))
+	#measure_function_time(load_gen_states, 1, ["res://gen_states.bin"])
+	#gen_states = load_gen_states("res://gen_states.bin")
+	#var count: int = 0
+	#for tlist in gen_states:
+		#count += tlist.size()
+	#
+	#print("There are ", count, " tlist.")
+	#
+	#print("The 100th polyomino is: ", get_nth_polyomino(100))
 	
 
 ## Fill out a state in the generator table if it doesn't exist
@@ -268,6 +269,38 @@ static func find(sets: Array[int], s: int) -> int:
 	else:
 		sets[s] = 1
 		return s
+
+func measure_function_time(function_to_measure: Callable, iterations: int = 1, parameters: Array = []) -> void:
+	var total_time: float = 0
+	var times: Array = []
+	
+	for i in range(iterations):
+		var start_time = Time.get_ticks_usec()
+		
+		# Call the function with parameters if provided
+		if parameters.is_empty():
+			function_to_measure.call()
+		else:
+			function_to_measure.callv(parameters)
+	
+		var end_time = Time.get_ticks_usec()
+		var elapsed_time = (end_time - start_time) / 1000.0
+	
+		times.append(elapsed_time)
+		total_time += elapsed_time
+	
+	# Calculate statistics
+	var average_time = total_time / iterations
+	var min_time = times.min()
+	var max_time = times.max()
+	print({
+		"total_time": total_time,
+		"average_time": average_time,
+		"min_time": min_time,
+		"max_time": max_time,
+		"iterations": iterations,
+		"all_times": times
+	})
 
 
 ## Gets the value of the bool at position (x, y)

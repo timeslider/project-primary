@@ -52,7 +52,6 @@ static func check_bounds(col: int, row: int, zero_indexed: bool = true) -> void:
 
 
 static func get_state() -> int:
-	
 	return red | (yellow << 6) | (blue << 12)
 
 
@@ -95,7 +94,6 @@ static func print_bitboard(invert: bool = false) -> void:
 	print(output)
 
 
-# Rename to set_initial_state
 static func set_initial_state() -> void:
 	var colors: Array = []
 	colors.append(trailing_zero_count(~wall_data))

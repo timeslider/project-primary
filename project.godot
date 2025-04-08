@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Project Primary"
 run/main_scene="uid://da7nx152n4d33"
-config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
@@ -38,6 +38,11 @@ project/assembly_name="Project Primary"
 
 enabled=PackedStringArray("res://addons/guide/plugin.cfg")
 
+[gui]
+
+theme/custom="uid://bganbh0ijrnt7"
+theme/custom_font="uid://dthvuyb517pwh"
+
 [input]
 
 test={
@@ -51,4 +56,4 @@ test={
 textures/vram_compression/compress_with_gpu=false
 textures/vram_compression/cache_gpu_compressor=false
 textures/lossless_compression/force_png=true
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.272228, 0.4732, 0.498719, 1)
