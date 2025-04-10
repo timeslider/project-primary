@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LookupTable" load_steps=2 format=3 uid="uid://7qkp4ny70c8c"]
+
+[ext_resource type="Script" uid="uid://cxlgacw430xgk" path="res://Resources/lookup_table.gd" id="1_rctmh"]
+
+[resource]
+script = ExtResource("1_rctmh")
+Primary = Dictionary[int, int]({})
+metadata/_custom_type_script = "uid://cxlgacw430xgk"

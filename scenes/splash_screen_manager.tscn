@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bsxuuuqck0rlo" path="res://splash_screen.gd" id="1_kkrr7"]
 [ext_resource type="Texture2D" uid="uid://esfevbtlfv1i" path="res://icon.svg" id="2_4krii"]
-[ext_resource type="PackedScene" uid="uid://dmq47lo3ype87" path="res://loading_screen.tscn" id="2_dpkmb"]
+[ext_resource type="PackedScene" uid="uid://dmq47lo3ype87" path="res://scenes/loading_screen.tscn" id="2_dpkmb"]
 
 [node name="SplashScreen" type="Control" node_paths=PackedStringArray("splash_screen_container")]
 layout_mode = 3

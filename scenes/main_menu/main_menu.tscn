@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgbds734samwg"]
+[gd_scene load_steps=11 format=3 uid="uid://bgbds734samwg"]
 
 [ext_resource type="Script" uid="uid://kkoafvbx4ym" path="res://scenes/main_menu/main_menu.gd" id="1_0ebjn"]
 [ext_resource type="Texture2D" uid="uid://cclhfhenlv6m" path="res://move-lookup-table-python-01.jpg" id="2_3ovsr"]
@@ -6,10 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://bcx17at8p5fpo" path="res://move-lookup-table-python-02.jpg" id="3_5seab"]
 [ext_resource type="Script" uid="uid://mqkrpp545g7y" path="res://scenes/main_menu/main_menu_sounds.gd" id="3_uqeha"]
 [ext_resource type="AudioStream" uid="uid://dmd5jhxfv17fh" path="res://Audio/drop_002.ogg" id="4_wem23"]
+[ext_resource type="Script" uid="uid://dh6e520bs1ufc" path="res://scenes/main_menu/settings_menu_logic.gd" id="7_5seab"]
 
 [sub_resource type="SystemFont" id="SystemFont_3ovsr"]
 font_names = PackedStringArray("Impact")
 subpixel_positioning = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ovsr"]
+bg_color = Color(0.14, 0.14, 0.14, 1)
+corner_radius_top_left = 70
+corner_radius_top_right = 70
+corner_radius_bottom_right = 70
+corner_radius_bottom_left = 70
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3ovsr"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -42,8 +52,7 @@ grow_vertical = 2
 texture = ExtResource("3_5seab")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
+[node name="ButtonContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,19 +64,19 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="ButtonContainer"]
 layout_mode = 2
 theme = ExtResource("2_ob46e")
 theme_type_variation = &"MainMenuPanel"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 60
 
-[node name="Separater" type="Control" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Separater" type="Control" parent="ButtonContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="GameTitle" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="GameTitle" type="Label" parent="ButtonContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 24
 theme_override_fonts/font = SubResource("SystemFont_3ovsr")
@@ -75,15 +84,15 @@ theme_override_font_sizes/font_size = 64
 text = "Primary"
 horizontal_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/PanelContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="ButtonContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_ob46e")
 theme_type_variation = &"MainMenuPanel"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("2_ob46e")
@@ -92,50 +101,127 @@ theme_override_constants/separation = 0
 alignment = 1
 script = ExtResource("3_uqeha")
 
-[node name="StartButton" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 24
-text = "continue()"
+text = "Continue"
 
-[node name="StartButton2" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+[node name="NewGameButton" type="Button" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 24
-text = "new_game()"
+text = "New game"
 
-[node name="StartButton3" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+[node name="LoadGameButton" type="Button" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 24
-text = "load_game()"
+text = "Load game"
 
-[node name="StartButton4" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+[node name="SelectChapterButton" type="Button" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 24
-text = "settings()"
+text = "Select chapter"
 
-[node name="ExitButton" type="Button" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+[node name="ExploreButton" type="Button" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 theme_override_font_sizes/font_size = 24
-text = "quit_to_desktop()"
+text = "Explore"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 24
+text = "Settings
+"
+
+[node name="QuitToDesktopButton" type="Button" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+theme_override_font_sizes/font_size = 24
+text = "Quit to desktop"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
 stream = ExtResource("4_wem23")
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="QuitOverlay" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 2
+visible = false
+
+[node name="QuitToDesktopOverlay" type="CenterContainer" parent="QuitOverlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="QuitOverlay/QuitToDesktopOverlay"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ovsr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuitOverlay/QuitToDesktopOverlay/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSeparator" type="HSeparator" parent="QuitOverlay/QuitToDesktopOverlay/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 59
+theme_override_styles/separator = SubResource("StyleBoxEmpty_3ovsr")
+
+[node name="Title" type="Label" parent="QuitOverlay/QuitToDesktopOverlay/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Are you sure?"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="QuitOverlay/QuitToDesktopOverlay/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_3ovsr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuitOverlay/QuitToDesktopOverlay/Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="YesQuit" type="Button" parent="QuitOverlay/QuitToDesktopOverlay/Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Yes"
+
+[node name="VSeparator" type="VSeparator" parent="QuitOverlay/QuitToDesktopOverlay/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="NoQuit" type="Button" parent="QuitOverlay/QuitToDesktopOverlay/Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "No"
+
+[node name="PressAnyButtonScreen" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -147,12 +233,123 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PressAnyButtonScreen"]
 layout_mode = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="Label" type="Label" parent="PressAnyButtonScreen/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 59
 text = "Press any button"
 horizontal_alignment = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="SettingsOverlay" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("7_5seab")
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsOverlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsOverlay/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsOverlay/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="GameplayButton" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+text = "Gameplay"
+
+[node name="GraphicsButton" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+text = "Graphics"
+
+[node name="AudioButton" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+text = "Audio"
+
+[node name="ControlsButton" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+text = "Controls"
+
+[node name="GameplayPanel" type="Panel" parent="SettingsOverlay/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="SettingsOverlay/MarginContainer/VBoxContainer/GameplayPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 27.0
+text = "This is the gameplay menu"
+
+[node name="GraphicsPanel" type="Panel" parent="SettingsOverlay/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 27.0
+text = "This is the graphics menu"
+
+[node name="AudioPanel" type="Panel" parent="SettingsOverlay/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="SettingsOverlay/MarginContainer/VBoxContainer/AudioPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 27.0
+text = "This is the audio menu"
+
+[node name="ControlsPanel" type="Panel" parent="SettingsOverlay/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="SettingsOverlay/MarginContainer/VBoxContainer/ControlsPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 27.0
+text = "This is the controls menu"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SettingsOverlay/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="CancelButton" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+text = "Cancel"
+
+[node name="OkButton" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+text = "Ok"

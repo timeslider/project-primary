@@ -1,10 +1,13 @@
 extends VBoxContainer
 
-@onready var start_button: Button = %StartButton
-@onready var start_button_2: Button = %StartButton2
-@onready var start_button_3: Button = %StartButton3
-@onready var start_button_4: Button = %StartButton4
-@onready var exit_button: Button = %ExitButton
+@onready var continue_button: Button = %ContinueButton
+@onready var new_game_button: Button = %NewGameButton
+@onready var load_game_button: Button = %LoadGameButton
+@onready var select_chapter_button: Button = %SelectChapterButton
+@onready var explore_button: Button = %ExploreButton
+@onready var settings_button: Button = %SettingsButton
+@onready var quit_to_desktop_button: Button = %QuitToDesktopButton
+
 #@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 var audio: AudioStreamPlayer = AudioStreamPlayer.new()
 
@@ -12,13 +15,14 @@ var pitch_table: Array[float] = []
 const TWELVETH_ROOT_TWO: float = 1.0594630943592952645618252949463
 
 func _ready() -> void:
-	start_button.mouse_entered.connect(play_sound)
-	start_button_2.mouse_entered.connect(play_sound)
-	start_button_3.mouse_entered.connect(play_sound)
-	start_button_4.mouse_entered.connect(play_sound)
-	exit_button.mouse_entered.connect(play_sound)
-	add_child(audio)
-	audio.stream = load("res://Audio/drop_002.ogg")
+	pass
+	#start_button.mouse_entered.connect(play_sound)
+	#start_button_2.mouse_entered.connect(play_sound)
+	#start_button_3.mouse_entered.connect(play_sound)
+	#start_button_4.mouse_entered.connect(play_sound)
+	#exit_button.mouse_entered.connect(play_sound)
+	#add_child(audio)
+	#audio.stream = load("res://Audio/drop_002.ogg")
 
 	#var temp: float = 1.0
 	for i in range(-10, 10):
