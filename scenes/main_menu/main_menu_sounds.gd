@@ -20,7 +20,7 @@ func _ready() -> void:
 	add_child(audio)
 	audio.stream = load("res://Audio/drop_002.ogg")
 
-	var temp: float = 1.0
+	#var temp: float = 1.0
 	for i in range(-10, 10):
 		pitch_table.append(pow(TWELVETH_ROOT_TWO, i))
 	for i in pitch_table:

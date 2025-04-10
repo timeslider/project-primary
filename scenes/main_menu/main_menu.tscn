@@ -1,20 +1,15 @@
 [gd_scene load_steps=8 format=3 uid="uid://bgbds734samwg"]
 
 [ext_resource type="Script" uid="uid://kkoafvbx4ym" path="res://scenes/main_menu/main_menu.gd" id="1_0ebjn"]
+[ext_resource type="Texture2D" uid="uid://cclhfhenlv6m" path="res://move-lookup-table-python-01.jpg" id="2_3ovsr"]
 [ext_resource type="Theme" uid="uid://bganbh0ijrnt7" path="res://ui_theme.tres" id="2_ob46e"]
+[ext_resource type="Texture2D" uid="uid://bcx17at8p5fpo" path="res://move-lookup-table-python-02.jpg" id="3_5seab"]
 [ext_resource type="Script" uid="uid://mqkrpp545g7y" path="res://scenes/main_menu/main_menu_sounds.gd" id="3_uqeha"]
 [ext_resource type="AudioStream" uid="uid://dmd5jhxfv17fh" path="res://Audio/drop_002.ogg" id="4_wem23"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_uqeha"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wem23"]
-width = 1920
-height = 1080
-seamless = true
-noise = SubResource("FastNoiseLite_uqeha")
-
 [sub_resource type="SystemFont" id="SystemFont_3ovsr"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -33,10 +28,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("NoiseTexture2D_wem23")
+texture = ExtResource("2_3ovsr")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_5seab")
 expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -127,3 +134,25 @@ text = "quit_to_desktop()"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
 stream = ExtResource("4_wem23")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 59
+text = "Press any button"
+horizontal_alignment = 1

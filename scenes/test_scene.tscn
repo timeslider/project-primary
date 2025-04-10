@@ -1,16 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmn6fk7foeulo"]
 
-[ext_resource type="Script" uid="uid://cieqek3lv1llg" path="res://bitboard.gd" id="1_uhqqe"]
-[ext_resource type="Script" uid="uid://clys2n8k33fav" path="res://util.gd" id="2_ia1lp"]
+[ext_resource type="Script" uid="uid://cieqek3lv1llg" path="res://bitboard.gd" id="1_j8ivh"]
+[ext_resource type="Script" uid="uid://clys2n8k33fav" path="res://util.gd" id="2_nd71p"]
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_uhqqe")
+script = ExtResource("1_j8ivh")
 
 [node name="HSlider" type="HSlider" parent="."]
 offset_right = 1124.0
 offset_bottom = 49.0
 max_value = 1.0
 step = 0.0
-script = ExtResource("2_ia1lp")
+script = ExtResource("2_nd71p")
 
 [connection signal="drag_ended" from="HSlider" to="." method="_on_h_slider_drag_ended"]

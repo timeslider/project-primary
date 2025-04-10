@@ -12,6 +12,10 @@ const x: Dictionary = {
 		4: "Buy",
 		5: "What's good son",
 		}
+
+@onready var margin_container: MarginContainer = $MarginContainer
+@onready var margin_container_2: MarginContainer = $MarginContainer2
+
 #@onready var start_level = preload()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,7 +26,7 @@ func _ready() -> void:
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
@@ -32,7 +36,13 @@ func _on_start_button_button_up() -> void:
 func _on_exit_button_button_up() -> void:
 	get_tree().quit()
 
-func _input(event: InputEvent) -> void:
-	
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("test"):
 		print(PRIMARY_LOOKUP_TABLE[Vector2i(232, 2)])
+	if InputEventKey:
+		print(InputEventKey)
+		# TODO: Juice, fade one out and fade in the other
+		# Play a sound
+		margin_container_2.visible = false
+		margin_container.visible = true
+		

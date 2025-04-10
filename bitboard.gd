@@ -74,6 +74,7 @@ static func trailing_zero_count(value: int) -> int:
 # TODO: use string pool instead if the performace is too slow
 static func print_bitboard(invert: bool = false) -> void:
 	var output: String = ""
+	
 	output += "Puzzle: " + str(wall_data) + "\n"
 	for row in range(0, 8):
 		for col in range(0, 8):

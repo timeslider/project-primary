@@ -10,6 +10,7 @@ extends Control
 
 var splash_screens: Array[Node]
 
+
 func get_screens() -> void:
 	splash_screens = splash_screen_container.get_children()
 	for screen in splash_screens:
@@ -17,8 +18,10 @@ func get_screens() -> void:
 		
 
 func _ready() -> void:
+	
 	get_screens()
 	fade()
+	
 
 func fade() -> void:
 	for screen in splash_screens:
@@ -34,3 +37,7 @@ func fade() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_pressed():
 		get_tree().change_scene_to_packed(load_scene)
+
+#func _draw() -> void:
+	#draw_arc(Vector2(500.0, 500.0), 50, 0, 270, 10, Color.WHITE, 10, true)
+	
