@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bgbds734samwg"]
+[gd_scene load_steps=12 format=3 uid="uid://bgbds734samwg"]
 
 [ext_resource type="Script" uid="uid://kkoafvbx4ym" path="res://scenes/main_menu/main_menu.gd" id="1_0ebjn"]
 [ext_resource type="Texture2D" uid="uid://cclhfhenlv6m" path="res://move-lookup-table-python-01.jpg" id="2_3ovsr"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://mqkrpp545g7y" path="res://scenes/main_menu/main_menu_sounds.gd" id="3_uqeha"]
 [ext_resource type="AudioStream" uid="uid://dmd5jhxfv17fh" path="res://Audio/drop_002.ogg" id="4_wem23"]
 [ext_resource type="Script" uid="uid://dh6e520bs1ufc" path="res://scenes/main_menu/settings_menu_logic.gd" id="7_5seab"]
+[ext_resource type="Texture2D" uid="uid://esfevbtlfv1i" path="res://icon.svg" id="8_4xg86"]
 
 [sub_resource type="SystemFont" id="SystemFont_3ovsr"]
 font_names = PackedStringArray("Impact")
@@ -53,6 +54,7 @@ texture = ExtResource("3_5seab")
 expand_mode = 1
 
 [node name="ButtonContainer" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -342,6 +344,16 @@ text = "This is the controls menu"
 layout_mode = 2
 alignment = 2
 
+[node name="Revert" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+text = "Default"
+
+[node name="VSeparator" type="VSeparator" parent="SettingsOverlay/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="CancelButton" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(135, 0)
@@ -353,3 +365,184 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(135, 0)
 layout_mode = 2
 text = "Ok"
+
+[node name="NewGameSelectCanvas" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="NewGameSelectCanvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGameSelectCanvas/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "NEW GAME"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="TextureRect" type="TextureRect" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_4xg86")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "2025/04/05 07:48:50 PM"
+
+[node name="HSeparator" type="HSeparator" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Time played: 2h 58m 30s"
+
+[node name="Label2" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Puzzles beat: 24"
+
+[node name="VSeparator" type="VSeparator" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Delete"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "1"
+
+[node name="TextureRect" type="TextureRect" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("8_4xg86")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "2025/04/05 07:48:50 PM"
+
+[node name="HSeparator" type="HSeparator" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Time played: 2h 58m 30s"
+
+[node name="Label2" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Puzzles beat: 24"
+
+[node name="VSeparator" type="VSeparator" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Delete"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "1"
+
+[node name="TextureRect" type="TextureRect" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("8_4xg86")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+text = "2025/04/05 07:48:50 PM"
+
+[node name="HSeparator" type="HSeparator" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+text = "Time played: 2h 58m 30s"
+
+[node name="Label2" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Puzzles beat: 24"
+
+[node name="VSeparator" type="VSeparator" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Delete"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "1"
+
+[node name="TextureRect" type="TextureRect" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("8_4xg86")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
+layout_mode = 2
+text = "2025/04/05 07:48:50 PM"
+
+[node name="HSeparator" type="HSeparator" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
+layout_mode = 2
+text = "Time played: 2h 58m 30s"
+
+[node name="Label2" type="Label" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Puzzles beat: 24"
+
+[node name="VSeparator" type="VSeparator" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="NewGameSelectCanvas/MarginContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Delete"

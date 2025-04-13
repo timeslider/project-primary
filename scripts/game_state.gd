@@ -1,10 +1,16 @@
 class_name GameState
 extends Node
 
+# During the loading process, we need to check if current_save_file_location is
+# and set it. This reperesets the last save file the player used. If one is set,
+# then the main menu should have a continue button. Otherwise, continue can be
+# hidden.
+var current_save_file_location = ""
+
 ## This class represents the state of the entire game
-var worlds_status: Dictionary[String, bool] = {
-	"world_1_unlocked": true,
-	"world_2_unlocked": false,
+# There might be a better way of handling this since it can only be beaten in order.
+var worlds_status: Dictionary[String, Array] = {
+	"world_unlocked": [true, false, false, false],
 }
 
 

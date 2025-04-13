@@ -6,8 +6,10 @@ extends CanvasLayer
 @onready var audio_button: Button = %AudioButton
 @onready var controls_button: Button = %ControlsButton
 
-@onready var ok_button: Button = %OkButton
+@onready var revert_button: Button = %Revert
 @onready var cancel_button: Button = %CancelButton
+@onready var ok_button: Button = %OkButton
+
 @onready var button_container: MarginContainer = $"../ButtonContainer"
 
 @onready var panels: Array[Panel] = [
