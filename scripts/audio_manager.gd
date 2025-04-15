@@ -2,6 +2,8 @@ class_name AudioManager
 extends Node
 
 var sound_effect_dict = {}
+var paused: bool = false
+@onready var label: Label = $Label
 
 @export var sound_effect_settings: Array[SoundEffectSettings]
 
@@ -9,7 +11,7 @@ func _ready() -> void:
 	for sound_effect_setting: SoundEffectSettings in sound_effect_settings:
 		sound_effect_dict[sound_effect_setting.type] = sound_effect_setting
 
-func create_2d_audio_at_location(location: Vector2, type: SoundEffectSettings):
+func create_2d_audio_at_location(location: Vector2, type: SoundEffectSettings.SoundEffectType):
 	if sound_effect_dict.has(type):
 		var sound_effect_setting: SoundEffectSettings = sound_effect_dict[type]
 		if sound_effect_setting.has_open_limit():
@@ -28,3 +30,20 @@ func create_2d_audio_at_location(location: Vector2, type: SoundEffectSettings):
 			new_2d_audio.play()
 	else:
 		push_error("Audio Manager failed to find setting for type ", type)
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("test"):
+		create_2d_audio_at_location(Vector2(0.0, 0.0), SoundEffectSettings.SoundEffectType.UI_HOVERED)
+	if Input.is_action_just_pressed("pause"):
+		pause()
+
+
+func pause():
+	if paused == true:
+		get_tree().paused = false
+		label.visible = false
+		paused = false
+	else:
+		get_tree().paused = true
+		label.visible = true
+		paused = true

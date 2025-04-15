@@ -9,7 +9,7 @@ enum SoundEffectType {
 
 @export_range(0, 10) var limit: int = 5
 @export var type: SoundEffectType
-@export var sound_effect: AudioStreamMP3
+@export var sound_effect: AudioStream
 @export_range(-40, 20) var volume = 0
 @export_range(0.0, 4.0, 0.01) var pitch_scale = 1.0
 @export_range(0.0, 1.0, 0.1) var pitch_randomness = 0.0

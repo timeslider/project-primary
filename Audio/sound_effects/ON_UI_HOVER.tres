@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SoundEffectSettings" load_steps=3 format=3 uid="uid://6a6ddtbwol7q"]
+
+[ext_resource type="Script" uid="uid://d3jb4sjyll6jg" path="res://scripts/sound_effect_settings.gd" id="1_65jat"]
+[ext_resource type="AudioStream" uid="uid://cr47jh02ugwsi" path="res://Audio/confirmation_001.ogg" id="2_ap0y4"]
+
+[resource]
+script = ExtResource("1_65jat")
+limit = 1
+type = 1
+sound_effect = ExtResource("2_ap0y4")
+volume = 0
+pitch_scale = 1.0
+pitch_randomness = 0.0
+metadata/_custom_type_script = "uid://d3jb4sjyll6jg"

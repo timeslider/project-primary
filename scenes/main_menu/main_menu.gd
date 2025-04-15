@@ -1,21 +1,38 @@
 class_name MainMenu
 extends Control
 
-# Buttons
+
+
+
+# Continue
 @onready var continue_button: Button = %ContinueButton
+
+# New game
 @onready var new_game_button: Button = %NewGameButton
+@onready var new_game_select_overlay: CanvasLayer = %NewGameSelectOverlay
+@onready var new_game_back_button: Button = %NewGameBackButton
+
+# Load game
 @onready var load_game_button: Button = %LoadGameButton
+
+# Select chapter
 @onready var select_chapter_button: Button = %SelectChapterButton
+
+# Explore
 @onready var explore_button: Button = %ExploreButton
+
+# Settings
 @onready var settings_button: Button = %SettingsButton
-@onready var quit_to_desktop_button: Button = %QuitToDesktopButton
 @onready var settings_overlay: Settings = $SettingsOverlay
 
+# Quit
+@onready var quit_to_desktop_button: Button = %QuitToDesktopButton
 @onready var quit_overlay: CanvasLayer = %QuitOverlay
-@onready var button_container: MarginContainer = $ButtonContainer
 @onready var yes_quit: Button = %YesQuit
 @onready var no_quit: Button = %NoQuit
 
+
+@onready var main_menu_canvas: CanvasLayer = %MainMenuCanvas
 
 
 
@@ -43,10 +60,14 @@ func _ready() -> void:
 	#load_game_button.pressed.connect()
 	#select_chapter_button.pressed.connect()
 	#explore_button.pressed.connect()
+	
+	# Connections
 	settings_button.pressed.connect(_on_settings_button_pressed)
 	quit_to_desktop_button.pressed.connect(_on_quit_to_desktop_button_pressed)
 	yes_quit.pressed.connect(_on_yes_quit_pressed)
 	no_quit.pressed.connect(_on_no_quit_pressed)
+	new_game_back_button.pressed.connect(_new_game_back_button_pressed)
+	new_game_button.pressed.connect(_new_game_press)
 	
 	continue_button.grab_focus()
 	#print(MOVE_LOOKUP_TABLES.get_meta("primary"))
@@ -61,12 +82,13 @@ func _on_start_button_button_up() -> void:
 	pass # Replace with function body.
 
 func _on_quit_to_desktop_button_pressed() -> void:
-	button_container.hide()
+	main_menu_canvas.hide()
 	quit_overlay.show()
 
 
 func _on_settings_button_pressed() -> void:
-	button_container.hide()
+	main_menu_canvas.hide()
+	main_menu_canvas.visible = false
 	settings_overlay.show()
 	settings_overlay.grab_focus()
 	
@@ -76,16 +98,24 @@ func _on_yes_quit_pressed() -> void:
 
 
 func _on_no_quit_pressed() -> void:
-	button_container.show()
+	main_menu_canvas.show()
 	quit_overlay.hide()
 
-#func _input(_event: InputEvent) -> void:
-	#if Input.is_action_just_pressed("test"):
-		#print(PRIMARY_LOOKUP_TABLE[Vector2i(232, 2)])
-	#if InputEventKey:
-		#print(InputEventKey)
-		## TODO: Juice, fade one out and fade in the other
-		## Play a sound
-		#margin_container_2.visible = false
-		#margin_container.visible = true
-		
+
+func _new_game_press() -> void:
+	main_menu_canvas.hide()
+	new_game_select_overlay.show()
+
+
+func _new_game_back_button_pressed() -> void:
+	main_menu_canvas.show()
+	new_game_select_overlay.hide()
+
+
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("test"):
+		if main_menu_canvas.visible == true:
+			main_menu_canvas.visible = false
+		else:
+			main_menu_canvas.visible = true
+		print(main_menu_canvas.visible)

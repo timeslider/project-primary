@@ -10,7 +10,7 @@ extends CanvasLayer
 @onready var cancel_button: Button = %CancelButton
 @onready var ok_button: Button = %OkButton
 
-@onready var button_container: MarginContainer = $"../ButtonContainer"
+@onready var main_menu_canvas: CanvasLayer = $"../MainMenuCanvas"
 
 @onready var panels: Array[Panel] = [
 		%GameplayPanel,
@@ -59,13 +59,13 @@ func _on_controls_button_pressed():
 func _on_ok_button_pressed():
 	# Save the temp options data to perminent options data storage
 	self.hide()
-	button_container.show()
+	main_menu_canvas.show()
 
 
 func _on_cancel_button_pressed():
 	# Delete the temp options data and go back to main menu
 	self.hide()
-	button_container.show()
+	main_menu_canvas.show()
 
 
 func _change_menu(setting_menu: SettingMenu):
