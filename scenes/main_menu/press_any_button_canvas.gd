@@ -6,6 +6,9 @@ extends CanvasLayer
 #var press_any_button_bool: bool = false
 @onready var main_menu_canvas: CanvasLayer = %MainMenuCanvas
 
+func _ready() -> void:
+	animation_player.play("fade_in_out_loop")
+
 func _input(event: InputEvent) -> void:
 	if Input.is_anything_pressed() and press_any_button_canvas.visible == true:
 		print(InputEventKey)

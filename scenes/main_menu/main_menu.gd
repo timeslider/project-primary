@@ -52,15 +52,6 @@ const x: Dictionary = {
 #@onready var start_level = preload()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#start_button.button_up.connect(_on_start_button_button_up)
-	#exit_button.button_up.connect(_on_exit_button_button_up)
-	#print(MOVE_LOOKUP_TABLES.get_meta("let_it_slide"))
-	#continue_button.pressed.connect()
-	#new_game_button.pressed.connect()
-	#load_game_button.pressed.connect()
-	#select_chapter_button.pressed.connect()
-	#explore_button.pressed.connect()
-	
 	# Connections
 	settings_button.pressed.connect(_on_settings_button_pressed)
 	quit_to_desktop_button.pressed.connect(_on_quit_to_desktop_button_pressed)
@@ -77,6 +68,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+func _on_continue_button_pressed() -> void:
+	# Go to stage scene
+	# Load last puzzle the user was playing
+
+	pass
 
 func _on_start_button_button_up() -> void:
 	pass # Replace with function body.
