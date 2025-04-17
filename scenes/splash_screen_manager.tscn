@@ -33,13 +33,82 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Screen1" type="TextureRect" parent="SplashScreenContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 texture = ExtResource("2_4krii")
 
 [node name="Screen2" type="TextureRect" parent="SplashScreenContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 texture = ExtResource("2_4krii")
 
 [node name="Screen3" type="TextureRect" parent="SplashScreenContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 texture = ExtResource("2_4krii")
+
+[node name="Version" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+anchors_preset = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Version"]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 67.0
+offset_right = 925.0
+offset_bottom = 279.0
+
+[node name="Label" type="Label" parent="Version/VBoxContainer"]
+layout_mode = 2
+text = "Increment version?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Version/VBoxContainer"]
+layout_mode = 2
+
+[node name="Major" type="Button" parent="Version/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(94.29, 0)
+layout_mode = 2
+text = "Major"
+
+[node name="Minor" type="Button" parent="Version/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(94.29, 0)
+layout_mode = 2
+text = "Minor"
+
+[node name="Patch" type="Button" parent="Version/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(94.29, 0)
+layout_mode = 2
+text = "Patch"
+
+[node name="NotYet" type="Button" parent="Version/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(94.29, 0)
+layout_mode = 2
+text = "Not yet"
+
+[node name="version_label" type="Label" parent="Version"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 43.0
+offset_bottom = 27.0
+text = "0.0.0"
+
+[node name="Reset" type="Button" parent="Version"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1126.0
+offset_top = 670.0
+offset_right = 1257.0
+offset_bottom = 705.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Reset version"
