@@ -9,10 +9,19 @@
 [ext_resource type="AudioStream" uid="uid://dmd5jhxfv17fh" path="res://Audio/drop_002.ogg" id="4_wem23"]
 [ext_resource type="Script" uid="uid://dh6e520bs1ufc" path="res://scenes/main_menu/settings_menu_logic.gd" id="7_5seab"]
 [ext_resource type="Texture2D" uid="uid://esfevbtlfv1i" path="res://icon.svg" id="8_4xg86"]
+[ext_resource type="Script" uid="uid://0x0n5prquib6" path="res://scenes/main_menu/graphic_settings.gd" id="10_x2yjq"]
+[ext_resource type="Resource" uid="uid://cf5wdtk5b3ya1" path="res://Resources/default_settings.tres" id="11_lqpn7"]
+[ext_resource type="PackedScene" uid="uid://jaw3t0hakvrc" path="res://Resources/option_cycle_setting.tscn" id="12_qel0l"]
+
+[sub_resource type="SystemFont" id="SystemFont_3ovsr"]
+font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [sub_resource type="Environment" id="Environment_thkx5"]
 background_mode = 3
-background_canvas_max_layer = 1
+background_energy_multiplier = 1.42
+background_canvas_max_layer = 7
+tonemap_mode = 4
 glow_enabled = true
 glow_levels/1 = 1.0
 glow_levels/2 = 1.0
@@ -20,62 +29,9 @@ glow_levels/4 = 1.0
 glow_levels/6 = 1.0
 glow_levels/7 = 1.0
 glow_blend_mode = 0
-
-[sub_resource type="Animation" id="Animation_lqpn7"]
-length = 5.0
-tracks/0/type = "value"
-[sub_resource type="Animation" id="Animation_lqpn7"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PressAnyButtonCanvas/PressAnyButtonScreen:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_x2yjq"]
-resource_name = "fade_in_out_loop"
-length = 4.0
-loop_mode = 1
-step = 0.5
-tracks/0/type = "value"
-[sub_resource type="Animation" id="Animation_x2yjq"]
-resource_name = "fade_in_out_loop"
-length = 5.0
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PressAnyButtonCanvas/PressAnyButtonScreen:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.5, 2, 3.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1.75, 0), Color(1, 1, 1.75, 1), Color(1, 1, 1.75, 0)]
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 2.5, 5)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qel0l"]
-_data = {
-&"RESET": SubResource("Animation_lqpn7"),
-&"fade_in_out_loop": SubResource("Animation_x2yjq")
-}
-
-[sub_resource type="SystemFont" id="SystemFont_3ovsr"]
-font_names = PackedStringArray("Impact")
-subpixel_positioning = 0
+glow_hdr_threshold = 1.23
+glow_hdr_scale = 1.75
+glow_hdr_luminance_cap = 15.86
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ovsr"]
 bg_color = Color(0.14, 0.14, 0.14, 1)
@@ -117,15 +73,13 @@ grow_vertical = 2
 texture = ExtResource("3_5seab")
 expand_mode = 1
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_thkx5")
-
 [node name="PressAnyButtonCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 visible = false
 script = ExtResource("4_thkx5")
 
 [node name="PressAnyButtonScreen" type="MarginContainer" parent="PressAnyButtonCanvas"]
+modulate = Color(0.123, 0.534, 1.572, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -146,14 +100,9 @@ theme_override_font_sizes/font_size = 59
 text = "Press any button"
 horizontal_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PressAnyButtonCanvas"]
-root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_qel0l")
-}
-
 [node name="MainMenuCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
+visible = false
 
 [node name="ButtonContainer" type="MarginContainer" parent="MainMenuCanvas"]
 anchors_preset = 15
@@ -262,6 +211,9 @@ text = "Quit to desktop"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MainMenuCanvas/ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
 stream = ExtResource("4_wem23")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_thkx5")
 
 [node name="NewGameSelectOverlay" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -456,7 +408,6 @@ layout_mode = 2
 text = "Back"
 
 [node name="SettingsOverlay" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("7_5seab")
 
 [node name="MarginContainer" type="MarginContainer" parent="SettingsOverlay"]
@@ -503,6 +454,7 @@ text = "Controls"
 
 [node name="GameplayPanel" type="Panel" parent="SettingsOverlay/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -514,15 +466,60 @@ text = "This is the gameplay menu"
 
 [node name="GraphicsPanel" type="Panel" parent="SettingsOverlay/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
+script = ExtResource("10_x2yjq")
+settings = ExtResource("11_lqpn7")
 
-[node name="Label" type="Label" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 27.0
-text = "This is the graphics menu"
+[node name="MarginContainer" type="MarginContainer" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VSyncLabel" type="Label" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Vsync"
+
+[node name="VSyncDecreaseButton" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "<"
+
+[node name="VSyncValue" type="Label" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Vsync status"
+
+[node name="VSyncIncreaseButton" type="Button" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = ">"
+
+[node name="HBoxContainer2" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel/MarginContainer/VBoxContainer" instance=ExtResource("12_qel0l")]
+layout_mode = 2
+setting_name = "VSync Mode"
+option_names = Array[String](["Enable", "Adaptive", "Mailbox", "disabled"])
+option_values = [&"Enable", &"Adaptive", &"Mailbox", &"Disabled"]
+
+[node name="HBoxContainer3" parent="SettingsOverlay/MarginContainer/VBoxContainer/GraphicsPanel/MarginContainer/VBoxContainer" instance=ExtResource("12_qel0l")]
+layout_mode = 2
+setting_name = "MSAA"
+display_name = "MSAA"
+option_names = Array[String](["Disabled", "2x", "4x", "8x"])
 
 [node name="AudioPanel" type="Panel" parent="SettingsOverlay/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true

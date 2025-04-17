@@ -23,7 +23,7 @@ extends Control
 
 # Settings
 @onready var settings_button: Button = %SettingsButton
-@onready var settings_overlay: Settings = $SettingsOverlay
+@onready var settings_overlay:  = $SettingsOverlay
 
 # Quit
 @onready var quit_to_desktop_button: Button = %QuitToDesktopButton

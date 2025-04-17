@@ -62,4 +62,3 @@ textures/vram_compression/compress_with_gpu=false
 textures/vram_compression/cache_gpu_compressor=false
 textures/lossless_compression/force_png=true
 viewport/hdr_2d=true
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)

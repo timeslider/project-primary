@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://jaw3t0hakvrc"]
+
+[ext_resource type="Script" uid="uid://cwjvte1kd3mi0" path="res://Resources/option_cycle_setting.gd" id="1_lt630"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 1280.0
+offset_bottom = 35.0
+script = ExtResource("1_lt630")
+
+[node name="NameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Option name"
+
+[node name="PreviousButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "<"
+
+[node name="ValueLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Option value"
+
+[node name="NextButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = ">"

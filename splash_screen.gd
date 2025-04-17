@@ -38,7 +38,6 @@ var splash_screens: Array[Node]
 
 
 func _ready() -> void:
-	
 	#region version
 	# check if version file exist
 	if FileAccess.file_exists(_version_file) == true:

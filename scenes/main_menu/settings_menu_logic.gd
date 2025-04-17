@@ -1,5 +1,7 @@
-class_name Settings
+#class_name Settings
 extends CanvasLayer
+
+## Handles the logic of switches the setting panels
 
 @onready var gameplay_button: Button = %GameplayButton
 @onready var graphics_button: Button = %GraphicsButton
