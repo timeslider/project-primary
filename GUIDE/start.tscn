@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://da7nx152n4d33"]
 
-[ext_resource type="Script" uid="uid://bsxuuuqck0rlo" path="res://splash_screen.gd" id="1_tv0wy"]
+[ext_resource type="Script" uid="uid://bsxuuuqck0rlo" path="res://scripts/splash_screen.gd" id="1_tv0wy"]
 [ext_resource type="Texture2D" uid="uid://b58ar222wurm7" path="res://Gradient Texture.png" id="2_6uxie"]
 [ext_resource type="PackedScene" uid="uid://c02lttn7lgmj1" path="res://node_3d.tscn" id="2_vpi3n"]
 [ext_resource type="Shader" uid="uid://bp2bfdeblwtlu" path="res://radial_wipe.gdshader" id="3_4mrdr"]

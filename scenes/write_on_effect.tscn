@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c4avd7stf8v54"]
 
-[ext_resource type="Script" uid="uid://uxfwc7a45f0r" path="res://write_on_effect.gd" id="1_utwoc"]
+[ext_resource type="Script" uid="uid://uxfwc7a45f0r" path="res://scripts/write_on_effect.gd" id="1_utwoc"]
 
 [node name="WriteOnEffect" type="Node2D" node_paths=PackedStringArray("line")]
 script = ExtResource("1_utwoc")

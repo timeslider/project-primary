@@ -20,8 +20,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 GUIDE="*res://addons/guide/guide.gd"
-Util="*res://util.gd"
-Signals="*res://signals.gd"
+Util="*res://scripts/util.gd"
+Signals="*res://scripts/signals.gd"
 
 [display]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://g2ned1ujnmar"]
 
-[ext_resource type="Script" uid="uid://b5sfo5chgvyon" path="res://move_lookup_table_builder.gd" id="1_jk675"]
-[ext_resource type="Script" uid="uid://ickp8ejguklb" path="res://color_arrangement_generator.gd" id="2_iy3ab"]
+[ext_resource type="Script" uid="uid://b5sfo5chgvyon" path="res://scripts/move_lookup_table_builder.gd" id="1_jk675"]
+[ext_resource type="Script" uid="uid://ickp8ejguklb" path="res://scripts/color_arrangement_generator.gd" id="2_iy3ab"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_jk675")

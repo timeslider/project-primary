@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cixbokgfawqcw" path="res://scripts/audio_manager.gd" id="1_jisk1"]
 [ext_resource type="Script" uid="uid://d3jb4sjyll6jg" path="res://scripts/sound_effect_settings.gd" id="2_bq1v2"]
 [ext_resource type="Resource" uid="uid://6a6ddtbwol7q" path="res://Audio/sound_effects/ON_UI_HOVER.tres" id="3_6jj5d"]
-[ext_resource type="Script" uid="uid://3ts0etewv5wa" path="res://color_rect_pause_test.gd" id="4_5olve"]
+[ext_resource type="Script" uid="uid://3ts0etewv5wa" path="res://scripts/color_rect_pause_test.gd" id="4_5olve"]
 
 [node name="AudioManager" type="Node3D"]
 process_mode = 3

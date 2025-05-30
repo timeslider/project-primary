@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmn6fk7foeulo"]
 
-[ext_resource type="Script" uid="uid://cieqek3lv1llg" path="res://bitboard.gd" id="1_j8ivh"]
-[ext_resource type="Script" uid="uid://clys2n8k33fav" path="res://util.gd" id="2_nd71p"]
+[ext_resource type="Script" uid="uid://cieqek3lv1llg" path="res://scripts/bitboard.gd" id="1_j8ivh"]
+[ext_resource type="Script" uid="uid://clys2n8k33fav" path="res://scripts/util.gd" id="2_nd71p"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_j8ivh")

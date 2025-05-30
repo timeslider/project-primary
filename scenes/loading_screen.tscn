@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmq47lo3ype87"]
 
-[ext_resource type="Script" uid="uid://brohxgdk83ror" path="res://loading_screen.gd" id="1_mggpi"]
+[ext_resource type="Script" uid="uid://brohxgdk83ror" path="res://scripts/loading_screen.gd" id="1_mggpi"]
 [ext_resource type="PackedScene" uid="uid://bgbds734samwg" path="res://scenes/main_menu/main_menu.tscn" id="2_htrc2"]
 
 [node name="Control" type="Control"]
