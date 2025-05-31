@@ -96,7 +96,7 @@ func load_gen_states_v1() -> void:
 	var state_count = file.get_16()
 
 	# For each state
-	for _i in range(state_count):
+	for i in range(state_count):
 		var tlist: Array[GenTransitionInfo] = []
 		# Read number of transitions in this state
 		var transition_count = file.get_16()
@@ -129,7 +129,8 @@ func load_gen_states_v2() -> void:
 	if not file:
 		printerr("Error opening file for reading")
 		return
-
+	
+	# Load block into memory
 	var buffer: PackedByteArray = file.get_buffer(file.get_length())
 	file.close()
 	
@@ -141,7 +142,9 @@ func load_gen_states_v2() -> void:
 	pos += 2
 
 	# For each state
-	for _i: int in range(state_count):
+	for i: int in range(state_count):
+		if i % 100 == 0:
+			await get_tree().process_frame
 		var tlist: Array[GenTransitionInfo] = []
 		# Read number of transitions in this state
 		var transition_count = buffer.decode_u16(pos)
@@ -152,6 +155,7 @@ func load_gen_states_v2() -> void:
 			pos += 11
 		_gen_states.append(tlist)
 	gen_states = _gen_states
+	print("Gen states loaded")
 
 
 func load_gen_states_resource() -> Array:
@@ -376,7 +380,8 @@ func _ready() -> void:
 	#ResourceSaver.save(resource, "res://gen_states.tres")
 	#print(gen_states.size())
 	
-	load_gen_states_v2()
+	# Call this right before splash screen
+	#load_gen_states_v2()
 	
 	#var count: int = 0
 	#for tlist in gen_states:

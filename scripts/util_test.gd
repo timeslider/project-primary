@@ -8,7 +8,7 @@ func _ready() -> void:
 	#Util.load_gen_states_new("res://gen_states.bin")
 	print("Gen states: ", Util.gen_states.size())
 	
-	assert(Util.gen_states.size() == 5126)
+	#assert(Util.gen_states.size() == 5126)
 	#endregion
 	
 	

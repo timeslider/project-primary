@@ -70,6 +70,7 @@ func _ready() -> void:
 	version.queue_free()
 	#endregion version
 
+	Util.load_gen_states_v2()
 	splash_screens = splash_screen_container.get_children()
 	fade()
 

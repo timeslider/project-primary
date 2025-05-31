@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b367ngrpjsbnq"]
+[gd_scene load_steps=3 format=3 uid="uid://b367ngrpjsbnq"]
 
-[ext_resource type="Script" uid="uid://cfkro363kk6ce" path="res://scripts/util_test.gd" id="2_ia630"]
+[ext_resource type="Texture2D" uid="uid://bqnlp4linnl8e" path="res://Select board layout.png" id="2_6p0ul"]
+[ext_resource type="Script" uid="uid://dwsf2452r6pao" path="res://line_edit.gd" id="2_ia630"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,11 +10,39 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_ia630")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
-offset_left = 234.0
-offset_top = 30.0
-offset_right = 651.0
-offset_bottom = 441.0
+offset_right = 1080.0
+offset_bottom = 1920.0
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_6p0ul")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select board layout"
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 357.535)
+layout_mode = 2
+columns = 8
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+max_value = 5.10168e+13
+rounded = true
+allow_greater = true
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_ia630")
