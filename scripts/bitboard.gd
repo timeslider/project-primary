@@ -82,15 +82,15 @@ static func print_bitboard(invert: bool = false) -> void:
 	output += "Puzzle: " + str(wall_data) + "\n"
 	for row in range(0, 8):
 		for col in range(0, 8):
-			if row * 8 + col == red:
-				output += "R "
-				continue
-			if row * 8 + col == yellow:
-				output += "Y "
-				continue
-			if row * 8 + col == blue:
-				output += "B "
-				continue
+			#if row * 8 + col == red:
+				#output += "R "
+				#continue
+			#if row * 8 + col == yellow:
+				#output += "Y "
+				#continue
+			#if row * 8 + col == blue:
+				#output += "B "
+				#continue
 			if invert == true:
 				output += "- " if get_bitboard_cell_by_col_row(col, row) else "1 "
 			else:

@@ -24,46 +24,82 @@ texture = ExtResource("2_6p0ul")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 362)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D"]
-offset_left = -162.0
-offset_top = -244.0
-offset_right = 198.0
-offset_bottom = 203.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 script = ExtResource("2_rf6fq")
+scroll_select_scale = 100
 
-[node name="Title" type="Label" parent="Camera2D/VBoxContainer"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Select board layout"
 
-[node name="GridContainer" type="GridContainer" parent="Camera2D/VBoxContainer"]
-custom_minimum_size = Vector2(0, 357.535)
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
 layout_mode = 2
-columns = 8
+columns = 17
 
-[node name="BoardValue" type="Label" parent="Camera2D/VBoxContainer"]
+[node name="BoardValue" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "Select board layout"
 
-[node name="QuickSelect" type="HSlider" parent="Camera2D/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-max_value = 256.0
-
-[node name="ExactSelect" type="LineEdit" parent="Camera2D/VBoxContainer"]
+[node name="ExactSelect" type="LineEdit" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 max_length = 17
 emoji_menu_enabled = false
 script = ExtResource("2_ia630")
 
-[node name="ScrollSelect" type="HSlider" parent="Camera2D/VBoxContainer"]
+[node name="QuickSelect" type="HSlider" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+
+[node name="ScrollSelect" type="HSlider" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("4_rf6fq")
-max_value = 256.0
+min_value = -16.0
+max_value = 16.0
+tick_count = 33
+ticks_on_borders = true
 
-[node name="ScrollSelect2" type="HScrollBar" parent="Camera2D/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Decrement" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-max_value = 256.0
+size_flags_horizontal = 3
+text = "-1"
+
+[node name="Increment" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+
+[node name="Random" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Random
+"
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(344, 49)
+scale = Vector2(0.5, 0.5)
