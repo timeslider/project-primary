@@ -4,7 +4,7 @@ extends Node
 ## This class is mainly used for getting the nth polynominal
 
 #region signals
-## Is emitting when get_nth_polyomino is finished
+## Is emitting when get_polyomino is finished
 
 #signal got_nth_polyomino
 #endregion
@@ -211,13 +211,13 @@ func make_gen_state(next_row_number: int, checker_state: int, have_islands: int)
 
 
 ## Give a index, returns the polyomino in the range (0, 51_016_818_604_894_742)
-# Code using this should make sure it doesn't use an input larger than 51_016_818_604_894_742
-func get_nth_polyomino(index: int) -> int:
+# Code using this should make sure it doesn't use an input less than 0 or greater than 51_016_818_604_894_742
+func get_polyomino(index: int) -> int:
 	var state: int = 0
 	var poly: int = 0
 	for row in range(0, 8):
 		var tlist: Array[GenTransitionInfo] = gen_states[state]
-		#// binary search to find the transition that contains the nth path
+		# binary search to find the transition that contains the nth path
 		var hi: int = tlist.size() - 1
 		var lo: int = 0
 		while lo < hi:
@@ -234,10 +234,12 @@ func get_nth_polyomino(index: int) -> int:
 	return poly
 
 
-## Inverts get_nth_poly. Given a poly, give the index
-func get_n_value(polyomino: int) -> int:
+# TODO: Give this a better name, maybe?
+## Given a polyomino, return the index [br]
+## Inverts get_polyomino()
+func get_polyomino_index(polyomino: int) -> int:
 	var state: int = 0
-	var n: int = 0 # TODO Rename to index
+	var index: int = 0
 	
 	for row in range(8):
 		var current_row: int = ((polyomino >> ((7 - row) * 8)) & 0xFF)
@@ -250,11 +252,11 @@ func get_n_value(polyomino: int) -> int:
 			printerr("Invalid polyomino")
 		
 		if transition_index > 0:
-			n += tlist[transition_index - 1].cumulative_paths
+			index += tlist[transition_index - 1].cumulative_paths
 		
 		state = tlist[transition_index].next_state
 	
-	return n
+	return index
 
 
 ## Expands the specified state code.
@@ -389,7 +391,7 @@ func _ready() -> void:
 	#
 	#print("There are ", count, " tlist.")
 	#
-	#print("The 100th polyomino is: ", get_nth_polyomino(100))
+	#print("The 100th polyomino is: ", get_polyomino(100))
 	pass
 #endregion
 

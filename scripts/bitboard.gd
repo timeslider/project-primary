@@ -1,5 +1,11 @@
-class_name bitboard
+class_name Bitboard
 extends Node
+
+# TODO: This class currently acts more like a puzzle class than a bitboard class
+# The problem is that I'm not understanding what a bitboard really is
+# A bitboard is just an int and the methods around it to make it work
+# A puzzle should be a container for the puzzle data. It should have a bitboard
+# And methods to manipulate it
 
 static var wall_data: int
 static var playable: bool
@@ -142,7 +148,7 @@ static func set_initial_state() -> void:
 
 
 # Simplified version of the can move function for calculating the states
-static func can_move(_direction: bitboard.Direction, current_position: int) -> int:
+static func can_move(_direction: Bitboard.Direction, current_position: int) -> int:
 	var direction_vector: int = 0 # Where you are going to land
 	var edge: int = 0
 	match _direction:
@@ -164,3 +170,109 @@ static func can_move(_direction: bitboard.Direction, current_position: int) -> i
 	if direction_vector == red:
 		return 0
 	return direction_vector
+
+
+# Written by Deeps
+static var BYTE_REVERSAL_LOOKUP = []
+
+static func flip_horizontal(bitboard: int) -> int:
+	# Initialize lookup table if empty
+	if BYTE_REVERSAL_LOOKUP.is_empty():
+		for byte in range(256):
+			var reversed = 0
+			for j in range(8):
+				reversed = (reversed << 1) | (byte & 1)
+				byte = byte >> 1
+			BYTE_REVERSAL_LOOKUP.append(reversed)
+	
+	# Process each byte (row) in the bitboard
+	var result = 0
+	for i in range(8):
+		var byte = (bitboard >> (i * 8)) & 0xFF
+		result |= BYTE_REVERSAL_LOOKUP[byte] << (i * 8)
+	return result
+
+
+## Flips the bitboard horizontally
+static func flip_vertical(_bitboard: int) -> int:
+	# Flip the bitboard vertically
+	var flipped = (_bitboard << 56) | \
+	((_bitboard << 40) & 0x00FF000000000000) | \
+	((_bitboard << 24) & 0x0000FF0000000000) | \
+	((_bitboard << 8)  & 0x000000FF00000000) | \
+	((_bitboard >> 8)  & 0x00000000FF000000) | \
+	((_bitboard >> 24) & 0x0000000000FF0000) | \
+	((_bitboard >> 40) & 0x000000000000FF00) | \
+	((_bitboard >> 56) & 0x00000000000000FF)  # Mask to 8 bits to prevent sign extension
+	
+	return flipped
+
+
+# Diagonal flip over a1-h8 axis (for rotations)
+static func flip_diag_a1_h8(_bitboard: int) -> int:
+	var temp: int = 0
+	const K1 = 0x5500550055005500  # Binary: 0101010100000000... pattern
+	const K2 = 0x3333000033330000  # Binary: 0011001100000000... pattern
+	const K4 = 0x0f0f0f0f00000000  # Binary: 0000111100000000... pattern
+
+	temp = K4 & (_bitboard ^ (_bitboard << 28))
+	_bitboard ^= temp ^ (temp >> 28)
+	temp = K2 & (_bitboard ^ (_bitboard << 14))
+	_bitboard ^= temp ^ (temp >> 14)
+	temp = K1 & (_bitboard ^ (_bitboard << 7))
+	_bitboard ^= temp ^ (temp >> 7)
+	return _bitboard
+
+
+# Rotate 90 degrees clockwise
+static func rotate_cw(bitboard: int) -> int:
+	return flip_vertical(flip_diag_a1_h8(bitboard))
+
+
+# Rotate 90 degrees counter-clockwise
+static func rotate_ccw(bitboard: int) -> int:
+	return flip_horizontal(flip_diag_a1_h8(bitboard))
+
+# TODO: Something about either this or compare_unsigned doesn't work
+## Returns the bitboard's smallest symmetric representation (canonical form)
+static func canonicalize(bitboard: int) -> int:
+	var min_board = bitboard  # Start with original
+	var transforms = [
+		#bitboard, # you don't need to compare it to the orginal
+		rotate_cw(bitboard),
+		rotate_ccw(bitboard),
+		rotate_cw(rotate_cw(bitboard)),
+		flip_horizontal(bitboard),
+		flip_horizontal(rotate_cw(bitboard)),
+		flip_horizontal(rotate_ccw(bitboard)),
+		flip_horizontal(rotate_cw(rotate_cw(bitboard))),
+	]
+	
+	
+	var string_output: Array[String] = []
+	string_output.append(String.num_uint64(min_board))
+	
+	# Find the smallest representation (or use another ordering)
+	# TODO: Since these are signed, comparing them directly might not be right.
+	for transform in transforms:
+		string_output.append(String.num_uint64(transform))
+		if compare_unsigned(min_board, transform) == -1:
+			min_board = transform
+	print(string_output)
+	print(min_board)
+	return min_board
+
+# TODO: Test this method, it currently doesn't work
+## Compares two signed integers a with b as if they were unsigned
+static func compare_unsigned(a: int, b: int) -> int:
+	var a_sign: int = (a >> 63) & 1
+	var b_sign: int = (a >> 63) & 1
+	
+	if a_sign != b_sign:
+		return -1 if a_sign == 1 else 1
+	elif a < b:
+		return -1
+	elif a > b:
+		return 1
+	else:
+		return 0

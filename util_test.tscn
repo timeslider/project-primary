@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b367ngrpjsbnq"]
+[gd_scene load_steps=6 format=3 uid="uid://b367ngrpjsbnq"]
 
 [ext_resource type="Texture2D" uid="uid://bqnlp4linnl8e" path="res://Select board layout.png" id="2_6p0ul"]
 [ext_resource type="Script" uid="uid://dwsf2452r6pao" path="res://line_edit.gd" id="2_ia630"]
 [ext_resource type="Script" uid="uid://lgtupyqu3b7v" path="res://select_board.gd" id="2_rf6fq"]
 [ext_resource type="Theme" uid="uid://bganbh0ijrnt7" path="res://ui_theme.tres" id="4_rf6fq"]
+[ext_resource type="Script" uid="uid://b1kuxwcusamg1" path="res://scripts/bitboard_test.gd" id="5_1tmih"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -29,28 +30,39 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 25
+theme_override_constants/margin_left = 400
 theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_right = 400
 theme_override_constants/margin_bottom = 25
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 script = ExtResource("2_rf6fq")
-scroll_select_scale = 100
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Select board layout"
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 500)
+[node name="BoardIndexLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+text = "Board index:"
+
+[node name="PolyominoLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Polyomino:"
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_vertical = 3
 columns = 17
 
-[node name="BoardValue" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="BoardIndex" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -85,6 +97,18 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+text = "-100"
+
+[node name="Decrement2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-10"
+
+[node name="Decrement3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 text = "-1"
 
 [node name="Increment" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -93,6 +117,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "1"
 
+[node name="Increment2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+
+[node name="Increment3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+
 [node name="Random" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -100,6 +136,42 @@ size_flags_horizontal = 3
 text = "Random
 "
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Canon" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Canon"
+
+[node name="FlipH" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Flip H"
+
+[node name="FlipV" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Flip V"
+
+[node name="RotateCW" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rotate CW"
+
+[node name="RotateCCW" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RotateCCW"
+
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(344, 49)
-scale = Vector2(0.5, 0.5)
+position = Vector2(429, 157)
+scale = Vector2(0.4, 0.4)
+
+[node name="BitboardTest" type="Node" parent="."]
+script = ExtResource("5_1tmih")

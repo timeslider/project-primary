@@ -20,13 +20,13 @@ func _ready() -> void:
 	#endregion
 	
 	
-	#region get_nth_polyomino
-	var a: bitboard = bitboard.new()
+	#region get_polyomino()
+	var a: Bitboard = bitboard.new()
 	# The first 255 should be the same
 	for i in range(258):
-		assert(Util.get_nth_polyomino(i) == i, "%s was not the same as %s" % [Util.get_nth_polyomino(i), i])
+		assert(Util.get_polyomino(i) == i, "%s was not the same as %s" % [Util.get_polyomino(i), i])
 	a.set_initial_state()
-	a.wall_data = Util.get_nth_polyomino(1000)
+	a.wall_data = Util.get_polyomino(1000)
 	
 	a.print_bitboard()
 	print(Util.get_n_value(1252))
