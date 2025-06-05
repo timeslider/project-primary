@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_rctmh")
-Primary = Dictionary[int, int]({})
+Primary = Dictionary[Vector2i, Vector2i]({})
 metadata/_custom_type_script = "uid://cxlgacw430xgk"

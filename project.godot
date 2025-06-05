@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 GUIDE="*res://addons/guide/guide.gd"
 Util="*res://scripts/util.gd"
 Signals="*res://scripts/signals.gd"
+PuzzleSelectGlobal="*res://scripts/puzzle_select_global.gd"
 
 [display]
 

@@ -1,10 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://b367ngrpjsbnq"]
+[gd_scene load_steps=9 format=3 uid="uid://b367ngrpjsbnq"]
 
 [ext_resource type="Texture2D" uid="uid://bqnlp4linnl8e" path="res://Select board layout.png" id="2_6p0ul"]
 [ext_resource type="Script" uid="uid://dwsf2452r6pao" path="res://line_edit.gd" id="2_ia630"]
-[ext_resource type="Script" uid="uid://lgtupyqu3b7v" path="res://select_board.gd" id="2_rf6fq"]
+[ext_resource type="Script" uid="uid://lgtupyqu3b7v" path="res://scripts/select_board.gd" id="2_rf6fq"]
 [ext_resource type="Theme" uid="uid://bganbh0ijrnt7" path="res://ui_theme.tres" id="4_rf6fq"]
 [ext_resource type="Script" uid="uid://b1kuxwcusamg1" path="res://scripts/bitboard_test.gd" id="5_1tmih"]
+[ext_resource type="Shader" uid="uid://cir14ash0rk1t" path="res://modulate.gdshader" id="6_3p5ma"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a5kqf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ro6pp"]
+render_priority = 0
+shader = ExtResource("6_3p5ma")
+shader_parameter/modulate_color = Color(0.243137, 0.584314, 1, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -25,12 +33,10 @@ texture = ExtResource("2_6p0ul")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 362)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 400
@@ -38,50 +44,50 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 400
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/MarginContainer"]
 layout_mode = 2
 script = ExtResource("2_rf6fq")
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Select board layout"
+text = "Select polyomino"
 
-[node name="BoardIndexLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="PolyominoIndexLabel" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Board index:"
+text = "Polyomino index:"
 
-[node name="PolyominoLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="PolyominoLabel" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Polyomino:"
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="Camera2D/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_vertical = 3
 columns = 17
 
-[node name="BoardIndex" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="BoardIndex" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "Select board layout"
 
-[node name="ExactSelect" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+[node name="ExactSelect" type="LineEdit" parent="Camera2D/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 max_length = 17
 emoji_menu_enabled = false
 script = ExtResource("2_ia630")
 
-[node name="QuickSelect" type="HSlider" parent="MarginContainer/VBoxContainer"]
+[node name="QuickSelect" type="HSlider" parent="Camera2D/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 1.0
 step = 0.0
 
-[node name="ScrollSelect" type="HSlider" parent="MarginContainer/VBoxContainer"]
+[node name="ScrollSelect" type="HSlider" parent="Camera2D/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("4_rf6fq")
@@ -90,88 +96,123 @@ max_value = 16.0
 tick_count = 33
 ticks_on_borders = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Decrement" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DecrementBy100" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "-100"
 
-[node name="Decrement2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DecrementBy10" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "-10"
 
-[node name="Decrement3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DecrementBy1" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "-1"
 
-[node name="Increment" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="IncrementBy1" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1"
 
-[node name="Increment2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="IncrementBy10" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "10"
 
-[node name="Increment3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="IncrementBy100" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "100"
 
-[node name="Random" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Camera2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Canon" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Canon"
+
+[node name="FlipH" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Flip H"
+
+[node name="FlipV" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Flip V"
+
+[node name="RotateCW" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rotate CW"
+
+[node name="RotateCCW" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RotateCCW"
+
+[node name="Random" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Random
 "
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Camera2D/MarginContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="Canon" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="BackButton" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(69.185, 0)
+layout_mode = 2
+text = "<"
+
+[node name="VSeparator" type="VSeparator" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Canon"
 
-[node name="FlipH" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="HelpButton" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(69.185, 0)
+layout_mode = 2
+text = "?"
+
+[node name="VSeparator2" type="VSeparator" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Flip H"
 
-[node name="FlipV" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="NextButton" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(69.185, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Flip V"
+text = ">"
 
-[node name="RotateCW" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Tiles" type="Node2D" parent="."]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Rotate CW"
-
-[node name="RotateCCW" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "RotateCCW"
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(429, 157)
-scale = Vector2(0.4, 0.4)
+position = Vector2(460.68, 144.665)
+scale = Vector2(0.366, 0.366)
 
 [node name="BitboardTest" type="Node" parent="."]
 script = ExtResource("5_1tmih")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_a5kqf")
+surface_material_override/0 = SubResource("ShaderMaterial_ro6pp")

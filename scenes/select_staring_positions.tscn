@@ -1,0 +1,178 @@
+[gd_scene load_steps=6 format=3 uid="uid://la3pgsjjbn0j"]
+
+[ext_resource type="Texture2D" uid="uid://bqnlp4linnl8e" path="res://Select board layout.png" id="1_s8020"]
+[ext_resource type="Script" uid="uid://b6y3nvcwk0uhw" path="res://scripts/select_base.gd" id="2_s8020"]
+[ext_resource type="Script" uid="uid://dwsf2452r6pao" path="res://line_edit.gd" id="3_q3uih"]
+[ext_resource type="Theme" uid="uid://bganbh0ijrnt7" path="res://ui_theme.tres" id="4_ph7fl"]
+[ext_resource type="Script" uid="uid://b1kuxwcusamg1" path="res://scripts/bitboard_test.gd" id="5_1smws"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1080.0
+offset_bottom = 1920.0
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("1_s8020")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 362)
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/MarginContainer" node_paths=PackedStringArray("select_title", "value_label", "quick_select", "exact_select", "scroll_select", "decrement_by_1", "decrement_by_10", "decrement_by_100", "increment_by_1", "increment_by_10", "increment_by_100", "back_button", "help_button", "next_button")]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+script = ExtResource("2_s8020")
+select_title = NodePath("SelectTitle")
+select_title_string = "Select starting tiles"
+value_label = NodePath("ValueLabel")
+value_name = "Players: "
+quick_select = NodePath("QuickSelect")
+exact_select = NodePath("ExactSelect")
+scroll_select = NodePath("ScrollSelect")
+decrement_by_1 = NodePath("IncrementRow/DecrementBy1")
+decrement_by_10 = NodePath("IncrementRow/DecrementBy10")
+decrement_by_100 = NodePath("IncrementRow/DecrementBy100")
+increment_by_1 = NodePath("IncrementRow/IncrementBy1")
+increment_by_10 = NodePath("IncrementRow/IncrementBy10")
+increment_by_100 = NodePath("IncrementRow/IncrementBy100")
+back_button = NodePath("BottomRow/BackButton")
+help_button = NodePath("BottomRow/HelpButton")
+next_button = NodePath("BottomRow/NextButton")
+back_scene = "res://scripts/select_board.gd"
+
+[node name="SelectTitle" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ValueLabel" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Camera2D/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_vertical = 3
+columns = 17
+
+[node name="BoardIndex" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Select board layout"
+
+[node name="ExactSelect" type="LineEdit" parent="Camera2D/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_length = 17
+emoji_menu_enabled = false
+script = ExtResource("3_q3uih")
+
+[node name="QuickSelect" type="HSlider" parent="Camera2D/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+
+[node name="ScrollSelect" type="HSlider" parent="Camera2D/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_ph7fl")
+min_value = -16.0
+max_value = 16.0
+tick_count = 33
+ticks_on_borders = true
+
+[node name="IncrementRow" type="HBoxContainer" parent="Camera2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DecrementBy100" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/IncrementRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-100"
+
+[node name="DecrementBy10" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/IncrementRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-10"
+
+[node name="DecrementBy1" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/IncrementRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-1"
+
+[node name="IncrementBy1" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/IncrementRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+
+[node name="IncrementBy10" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/IncrementRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+
+[node name="IncrementBy100" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/IncrementRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+
+[node name="BottomRow" type="HBoxContainer" parent="Camera2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BackButton" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/BottomRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(69.185, 0)
+layout_mode = 2
+text = "<"
+
+[node name="VSeparator" type="VSeparator" parent="Camera2D/MarginContainer/VBoxContainer/BottomRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HelpButton" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/BottomRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(69.185, 0)
+layout_mode = 2
+text = "?"
+
+[node name="VSeparator2" type="VSeparator" parent="Camera2D/MarginContainer/VBoxContainer/BottomRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NextButton" type="Button" parent="Camera2D/MarginContainer/VBoxContainer/BottomRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(69.185, 0)
+layout_mode = 2
+text = ">"
+
+[node name="Tiles" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(460.68, 144.665)
+scale = Vector2(0.366, 0.366)
+
+[node name="BitboardTest" type="Node" parent="."]
+script = ExtResource("5_1smws")

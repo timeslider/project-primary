@@ -234,7 +234,6 @@ func get_polyomino(index: int) -> int:
 	return poly
 
 
-# TODO: Give this a better name, maybe?
 ## Given a polyomino, return the index [br]
 ## Inverts get_polyomino()
 func get_polyomino_index(polyomino: int) -> int:
@@ -244,18 +243,17 @@ func get_polyomino_index(polyomino: int) -> int:
 	for row in range(8):
 		var current_row: int = ((polyomino >> ((7 - row) * 8)) & 0xFF)
 		var tlist: Array = gen_states[state]
-		
-		#var transition_index: int = tlist.FindIndex()
+
 		var transition_index: int = tlist.find_custom(func(t): return t.next_row == current_row)
-		
+
 		if transition_index < 0:
 			printerr("Invalid polyomino")
-		
+
 		if transition_index > 0:
 			index += tlist[transition_index - 1].cumulative_paths
-		
+
 		state = tlist[transition_index].next_state
-	
+
 	return index
 
 

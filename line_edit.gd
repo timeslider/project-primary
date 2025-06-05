@@ -1,9 +1,10 @@
+class_name NumericLineEdit
 extends LineEdit
 
-func _ready() -> void:
-	self.text_changed.connect(_limit_input)
+#func _ready() -> void:
+	#self.text_changed.connect(limit_input)
 
-func _limit_input(current_string: String) -> void:
+func limit_input(current_string: String) -> void:
 	var caret_column_old: int = self.caret_column
 	var new_string: String = ""
 	
