@@ -41,9 +41,9 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 script = ExtResource("2_s8020")
 select_title = NodePath("SelectTitle")
-select_title_string = "Select starting tiles"
+select_title_string = "Select Starting Layout"
 value_label = NodePath("ValueLabel")
-value_name = "Players: "
+value_name = "Starting Layout: "
 quick_select = NodePath("QuickSelect")
 exact_select = NodePath("ExactSelect")
 scroll_select = NodePath("ScrollSelect")
@@ -56,15 +56,19 @@ increment_by_100 = NodePath("IncrementRow/IncrementBy100")
 back_button = NodePath("BottomRow/BackButton")
 help_button = NodePath("BottomRow/HelpButton")
 next_button = NodePath("BottomRow/NextButton")
-back_scene = "res://scripts/select_board.gd"
+back_scene = "uid://b367ngrpjsbnq"
+next_scene = "uid://c02lttn7lgmj1"
+Select = 1
 
 [node name="SelectTitle" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Select Starting Layout"
 
 [node name="ValueLabel" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Starting Layout: "
 
 [node name="GridContainer" type="GridContainer" parent="Camera2D/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 400)
