@@ -25,7 +25,10 @@ static var gen_state_numbers: Dictionary[int, int] = {}
 ## Generator states.  These for a DFA that accepts all 8-row polyminoes.
 ## State 0 is used as both the unique start state and the unique accept state
 # NOTE: If nested arrays ever become a thing, use Array[Array[GenTransitionInfo]]
-static var gen_states: Array = []
+static var gen_states: Array = []:
+	set(value):
+		gen_states = value
+		print(get_stack())
 ## Map from the long-form state code for each state to the state number
 ## see expandState.
 ## 
@@ -121,9 +124,10 @@ func load_gen_states_v2_async() -> void:
 # TODO: The file path can probably be hard coded since it's a resource.
 func load_gen_states_v2() -> void:
 	# Prevents loading twice
-	#if gen_states.size() > 0:
-		##printerr("You shouldn't be loading this again. 😥")
-		#return
+	print("gen states size: %s" % gen_states.size())
+	if gen_states.size() > 0:
+		printerr("You shouldn't be loading this again. 😥")
+		return
 	
 	var file = FileAccess.open("res://gen_states.bin", FileAccess.READ)
 	if not file:

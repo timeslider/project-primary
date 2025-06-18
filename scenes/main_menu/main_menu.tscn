@@ -102,7 +102,6 @@ horizontal_alignment = 1
 
 [node name="MainMenuCanvas" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-visible = false
 
 [node name="ButtonContainer" type="MarginContainer" parent="MainMenuCanvas"]
 anchors_preset = 15
@@ -132,7 +131,7 @@ layout_mode = 2
 theme_override_constants/outline_size = 24
 theme_override_fonts/font = SubResource("SystemFont_3ovsr")
 theme_override_font_sizes/font_size = 64
-text = "Primary"
+text = "Chronicles of Chromatica"
 horizontal_alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="MainMenuCanvas/ButtonContainer/PanelContainer/VBoxContainer"]
@@ -211,6 +210,18 @@ text = "Quit to desktop"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MainMenuCanvas/ButtonContainer/PanelContainer/VBoxContainer/CenterContainer/MarginContainer/VBoxContainer"]
 stream = ExtResource("4_wem23")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenuCanvas/ButtonContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Discord" type="LinkButton" parent="MainMenuCanvas/ButtonContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Discord"
+uri = "https://discord.gg/CWXySHgb8B"
+
+[node name="Feedback" type="LinkButton" parent="MainMenuCanvas/ButtonContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Feedback"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_thkx5")
@@ -408,6 +419,7 @@ layout_mode = 2
 text = "Back"
 
 [node name="SettingsOverlay" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("7_5seab")
 
 [node name="MarginContainer" type="MarginContainer" parent="SettingsOverlay"]
@@ -629,3 +641,5 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "No"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

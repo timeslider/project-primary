@@ -1,9 +1,7 @@
 class_name NumericLineEdit
 extends LineEdit
 
-#func _ready() -> void:
-	#self.text_changed.connect(limit_input)
-
+## Forces the LineEdit to only accept numebers
 func limit_input(current_string: String) -> void:
 	var caret_column_old: int = self.caret_column
 	var new_string: String = ""

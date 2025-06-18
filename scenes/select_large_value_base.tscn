@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://x3dnleueeh0i"]
+
+[ext_resource type="Script" uid="uid://dwsf2452r6pao" path="res://line_edit.gd" id="2_6ws03"]
+[ext_resource type="Theme" uid="uid://bganbh0ijrnt7" path="res://ui_theme.tres" id="3_fmkbp"]
+
+[node name="SelectLargeValueBase" type="VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+
+[node name="SelectTitle" type="Label" parent="."]
+layout_mode = 2
+text = "Select Starting Layout"
+
+[node name="ValueLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Starting Layout: "
+
+[node name="GridContainer" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_vertical = 3
+columns = 17
+
+[node name="ExactSelect" type="LineEdit" parent="."]
+layout_mode = 2
+max_length = 17
+emoji_menu_enabled = false
+script = ExtResource("2_6ws03")
+
+[node name="QuickSelect" type="HSlider" parent="."]
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+
+[node name="ScrollSelect" type="HSlider" parent="."]
+layout_mode = 2
+theme = ExtResource("3_fmkbp")
+min_value = -16.0
+max_value = 16.0
+tick_count = 33
+ticks_on_borders = true
+
+[node name="IncrementRow" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DecrementBy100" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-100"
+
+[node name="DecrementBy10" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-10"
+
+[node name="DecrementBy1" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-1"
+
+[node name="IncrementBy1" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+
+[node name="IncrementBy10" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+
+[node name="IncrementBy100" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"

@@ -1,15 +1,37 @@
 class_name Puzzle
 extends Node
 
-static var wall_data: int
+## This class combines a lot of information to create a puzzle class
+## It contains everything about the puzzle including wall data, player data,
+## goal data, is_playable, reasons for why it's not playable if applicable.
+
+# walls: 64-bit bitboard
+static var wall_data: int = 0
+
+# true = this puzzle is playable
 static var playable: bool
+
+# A list of human-readable string for why this puzzle isn't playable
 static var reasons: Array[String]
-static var red: int
-static var yellow: int
-static var blue: int
-static var state: int:
-	get ():
-		return get_state()
+
+# Player tiles: Array of positions
+static var players = {
+	"red": Vector2i(0, 0),
+	"yellow": Vector2i(0, 0),
+	"blue": Vector2i(0, 0),
+}
+
+static var goals = {
+	"red": Vector2i(0, 0),
+	"yellow": Vector2i(0, 0),
+	"blue": Vector2i(0, 0),
+}
+
+static var players_bb: int = 0
+
+#static var state: int:
+	#get ():
+		#return get_state()
 
 
 const MAX_POLYOMINO: int = 51016818604894741
@@ -29,14 +51,14 @@ func _ready() -> void:
 ## the next 6 bits is the index of the yellow tile,
 ## and the next 6 bits is the index of the blue tile.
 ## Example: 37061 = { red : 5, yellow : 3, blue : 9}
-static func get_state() -> int:
-	return red | (yellow << 6) | (blue << 12)
-
-
-static func set_state(new_state: int) -> void:
-	red = new_state & 0x3f
-	yellow = (new_state >> 6) & 0x3f
-	blue = (new_state >> 12) & 0x3f
+#static func get_state() -> int:
+	#return red | (yellow << 6) | (blue << 12)
+#
+#
+#static func set_state(new_state: int) -> void:
+	#red = new_state & 0x3f
+	#yellow = (new_state >> 6) & 0x3f
+	#blue = (new_state >> 12) & 0x3f
 
 
 # There's an insintric that does this if we had access to it...
@@ -53,10 +75,9 @@ static func trailing_zero_count(value: int) -> int:
 # The algorithm for setting the initial state works like this
 # The red tile will be placed at the first empty cell when scanning the board
 # Left to right, top to bottom. The yellow tile will be placed at the first empty
-# cell that is to the right or below the red tile. If both cells are open, then right has priority.
+# cell that is to the right or below the red tile. If both cells are empty, then right has priority.
 # The blue tile will be placed to the left, to the right, or below the yellow tile.
 # Left has priority, then right, then below.
-
 static func set_initial_state() -> void:
 	var colors: Array = []
 	colors.append(trailing_zero_count(~wall_data))

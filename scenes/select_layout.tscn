@@ -1,0 +1,114 @@
+[gd_scene load_steps=10 format=3 uid="uid://cylb6vrdrn1rt"]
+
+[ext_resource type="Script" uid="uid://btitjjwicwtvj" path="res://scripts/select_layout.gd" id="1_s6uso"]
+[ext_resource type="Script" uid="uid://dwsf2452r6pao" path="res://line_edit.gd" id="2_24lth"]
+[ext_resource type="Theme" uid="uid://bganbh0ijrnt7" path="res://ui_theme.tres" id="3_ypy8g"]
+[ext_resource type="Texture2D" uid="uid://btic7e6b1x8bi" path="res://icons/canon.svg" id="4_0nfhk"]
+[ext_resource type="Texture2D" uid="uid://dutbtp30oifpq" path="res://icons/flip horizontal.svg" id="5_xwxnx"]
+[ext_resource type="Texture2D" uid="uid://brnng8qdkcepf" path="res://icons/flip_vertical_64_x_64.svg" id="6_tt7m3"]
+[ext_resource type="Texture2D" uid="uid://d3awvrfkstten" path="res://icons/rotate_clockwise.svg" id="7_nptlv"]
+[ext_resource type="Texture2D" uid="uid://cdufu6ot2jlbw" path="res://icons/rotate_counter_clockwise.svg" id="8_fbx1h"]
+[ext_resource type="Texture2D" uid="uid://bexetoh4lq84w" path="res://icons/random.svg" id="9_xwxnx"]
+
+[node name="SelectLayout" type="VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+script = ExtResource("1_s6uso")
+
+[node name="SelectTitle" type="Label" parent="."]
+layout_mode = 2
+
+[node name="ValueLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="PolyominoLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="ExactSelect" type="LineEdit" parent="."]
+layout_mode = 2
+max_length = 17
+emoji_menu_enabled = false
+script = ExtResource("2_24lth")
+
+[node name="QuickSelect" type="HSlider" parent="."]
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+
+[node name="ScrollSelect" type="HSlider" parent="."]
+layout_mode = 2
+theme = ExtResource("3_ypy8g")
+min_value = -16.0
+max_value = 16.0
+tick_count = 33
+ticks_on_borders = true
+
+[node name="IncrementRow" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DecrementBy100" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-100"
+
+[node name="DecrementBy10" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-10"
+
+[node name="DecrementBy1" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-1"
+
+[node name="IncrementBy1" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+
+[node name="IncrementBy10" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+
+[node name="IncrementBy100" type="Button" parent="IncrementRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Canon" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("4_0nfhk")
+icon_alignment = 1
+expand_icon = true
+
+[node name="FlipH" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("5_xwxnx")
+
+[node name="FlipV" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("6_tt7m3")
+
+[node name="RotateCW" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("7_nptlv")
+
+[node name="RotateCCW" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("8_fbx1h")
+
+[node name="Random" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("9_xwxnx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "get_player_starting_positions()"
