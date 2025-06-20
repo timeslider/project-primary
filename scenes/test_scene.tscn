@@ -1,16 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmn6fk7foeulo"]
 
-[ext_resource type="Script" uid="uid://cieqek3lv1llg" path="res://scripts/bitboard.gd" id="1_j8ivh"]
-[ext_resource type="Script" uid="uid://clys2n8k33fav" path="res://scripts/util.gd" id="2_nd71p"]
+[ext_resource type="Script" uid="uid://b187umbxbhi30" path="res://scripts/sliding_tile_search.gd" id="1_g7g4h"]
+[ext_resource type="Script" uid="uid://cwtngpco7kfcp" path="res://scripts/sliding_tile_search_test.gd" id="2_j8ivh"]
 
-[node name="Node3D" type="Node3D"]
-script = ExtResource("1_j8ivh")
+[node name="Test" type="Node"]
+script = ExtResource("1_g7g4h")
 
-[node name="HSlider" type="HSlider" parent="."]
-offset_right = 1124.0
-offset_bottom = 49.0
-max_value = 1.0
-step = 0.0
-script = ExtResource("2_nd71p")
-
-[connection signal="drag_ended" from="HSlider" to="." method="_on_h_slider_drag_ended"]
+[node name="Node" type="Node" parent="."]
+script = ExtResource("2_j8ivh")

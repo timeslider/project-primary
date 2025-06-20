@@ -2,10 +2,10 @@ extends Node
 
 ## This autoload keeps a refernce to which puzzle the player selected
 
-var polyomino: int = -1:
+var layout: int = -1:
 	set(value):
-		polyomino = value
-		#print("The value of polyomino was changed to %s" % polyomino)
+		layout = value
+		#print("The value of layout was changed to %s" % layout)
 var players: int = -1:
 	set(value):
 		players = value

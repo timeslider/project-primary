@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://la3pgsjjbn0j"]
+[gd_scene load_steps=19 format=3 uid="uid://la3pgsjjbn0j"]
 
 [ext_resource type="Texture2D" uid="uid://bqnlp4linnl8e" path="res://Select board layout.png" id="1_ypequ"]
 [ext_resource type="Script" uid="uid://ug37dlcg4vmi" path="res://scripts/select_puzzle_manager.gd" id="2_vsejv"]
@@ -6,7 +6,68 @@
 [ext_resource type="PackedScene" uid="uid://bhujk67m2kea0" path="res://scenes/select_players.tscn" id="4_3vw7q"]
 [ext_resource type="PackedScene" uid="uid://bk1bpn14ufyas" path="res://scenes/select_goals.tscn" id="5_xp1xf"]
 [ext_resource type="Script" uid="uid://d2ooajgy5cfgq" path="res://scripts/select_puzzle_navigation.gd" id="6_ocnb3"]
+[ext_resource type="Script" uid="uid://b6pn5hdfnp4ts" path="res://scripts/noise_component.gd" id="7_3vw7q"]
 [ext_resource type="Script" uid="uid://b1kuxwcusamg1" path="res://scripts/bitboard_test.gd" id="7_mdiog"]
+[ext_resource type="PackedScene" uid="uid://dfsgp35btpnav" path="res://Blender Meshes/ground.blend" id="8_xp1xf"]
+[ext_resource type="Shader" uid="uid://d3fcglar03gse" path="res://scenes/water_shader.gdshader" id="10_ocnb3"]
+[ext_resource type="Shader" uid="uid://b24t4n1q10u3f" path="res://scenes/film_grain.gdshader" id="11_xp1xf"]
+[ext_resource type="Script" uid="uid://fxgg4e3mlcct" path="res://scripts/puzzle_test.gd" id="12_mdiog"]
+[ext_resource type="Script" uid="uid://bsj1cnt1txuwb" path="res://scripts/puzzle.gd" id="13_f87rm"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mdiog"]
+size = Vector2(31, 31)
+subdivide_width = 1
+subdivide_depth = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f87rm"]
+render_priority = 0
+shader = ExtResource("10_ocnb3")
+shader_parameter/absorption_color = Color(1, 0.35, 0, 1)
+shader_parameter/fresnel_radius = 2.0
+shader_parameter/fresnel_color = Color(0, 0.57, 0.72, 1)
+shader_parameter/roughness = 0.15
+shader_parameter/specular = 0.25
+shader_parameter/depth_distance = 25.0
+shader_parameter/beers_law = 4.5
+shader_parameter/displacement_strength = 0.3
+shader_parameter/displacement_scroll_speed = 0.1
+shader_parameter/displacement_scroll_offset = Vector2(-0.2, 0.3)
+shader_parameter/displacement_scale_offset = 0.5
+shader_parameter/displacement_scale = Vector2(0.04, 0.04)
+shader_parameter/edge_thickness = 0.3
+shader_parameter/edge_speed = 0.35
+shader_parameter/edge_noise_scale = Vector2(0.4, 0.4)
+shader_parameter/influence_size = 1.0
+shader_parameter/player_wave_frequenzy = 10.0
+shader_parameter/player_wave_speed = 5.0
+shader_parameter/caustic_size = 2.0
+shader_parameter/caustic_range = 40.0
+shader_parameter/caustic_strength = 0.08
+shader_parameter/ssr_mix_strength = 0.65
+shader_parameter/ssr_travel = 100.0
+shader_parameter/ssr_resolution_near = 1.0
+shader_parameter/ssr_resolution_far = 5.0
+shader_parameter/ssr_tolerance = 1.0
+shader_parameter/refraction_strength = 1.25
+shader_parameter/normal_map_strength = 1.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/scroll_offset = Vector2(0.1, -0.3)
+shader_parameter/scale_offset = 0.5
+shader_parameter/normal_map_scale = Vector2(0.1, 0.1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ocnb3"]
+shader = ExtResource("11_xp1xf")
+shader_parameter/grain_amount = 0.05
+shader_parameter/grain_size = 1.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3vw7q"]
+seed = 14
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xp1xf"]
+width = 1280
+height = 720
+noise = SubResource("FastNoiseLite_3vw7q")
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -83,13 +144,264 @@ custom_minimum_size = Vector2(69.185, 0)
 layout_mode = 2
 text = ">"
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(640, 360)
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.70710677, -0.40860704, 0.5770964, 0, 0.8161376, 0.5778576, -0.70710677, -0.40860704, 0.5770964, 15, 13.832, 15)
+fov = 20.8
+size = 8.38
+
+[node name="NoiseComponent" type="Node" parent="Camera3D"]
+script = ExtResource("7_3vw7q")
+speed = 0.7350000000005821
 
 [node name="Tiles" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(585.89, 83.655)
 scale = Vector2(0.626, 0.626)
 
+[node name="WallTiles" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, -3.5)
+visible = false
+
+[node name="ground" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+
+[node name="ground2" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="ground3" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="ground4" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
+
+[node name="ground5" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="ground6" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="ground7" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="ground8" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
+
+[node name="ground9" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="ground10" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="ground11" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+
+[node name="ground12" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1)
+
+[node name="ground13" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1)
+
+[node name="ground14" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
+
+[node name="ground15" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1)
+
+[node name="ground16" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 1)
+
+[node name="ground17" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="ground18" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 2)
+
+[node name="ground19" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="ground20" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 2)
+
+[node name="ground21" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="ground22" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 2)
+
+[node name="ground23" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 2)
+
+[node name="ground24" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 2)
+
+[node name="ground25" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
+[node name="ground26" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+
+[node name="ground27" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3)
+
+[node name="ground28" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+
+[node name="ground29" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3)
+
+[node name="ground30" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3)
+
+[node name="ground31" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 3)
+
+[node name="ground32" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 3)
+
+[node name="ground33" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="ground34" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 4)
+
+[node name="ground35" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4)
+
+[node name="ground36" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 4)
+
+[node name="ground37" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+
+[node name="ground38" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
+
+[node name="ground39" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 4)
+
+[node name="ground40" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 4)
+
+[node name="ground41" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="ground42" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 5)
+
+[node name="ground43" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 5)
+
+[node name="ground44" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 5)
+
+[node name="ground45" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 5)
+
+[node name="ground46" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+
+[node name="ground47" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5)
+
+[node name="ground48" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 5)
+
+[node name="ground49" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="ground50" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 6)
+
+[node name="ground51" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
+
+[node name="ground52" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 6)
+
+[node name="ground53" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 6)
+
+[node name="ground54" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6)
+
+[node name="ground55" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
+
+[node name="ground56" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 6)
+
+[node name="ground57" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+
+[node name="ground58" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 7)
+
+[node name="ground59" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 7)
+
+[node name="ground60" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 7)
+
+[node name="ground61" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 7)
+
+[node name="ground62" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 7)
+
+[node name="ground63" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 7)
+
+[node name="ground64" parent="WallTiles" instance=ExtResource("8_xp1xf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7)
+
 [node name="BitboardTest" type="Node" parent="."]
 script = ExtResource("7_mdiog")
+
+[node name="CameraPosition1" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 17.003, 18.337)
+
+[node name="CameraPosition2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 25.007, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.47800207, 0.50658995, -0.7175519, 0, 0.8169235, 0.57674605, 0.8783587, 0.27568582, -0.39049113, 7.217035, 1.498646, 0)
+shadow_enabled = true
+directional_shadow_split_1 = 0.0
+directional_shadow_split_2 = 0.0
+directional_shadow_split_3 = 0.415
+directional_shadow_blend_splits = true
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 36.7
+directional_shadow_pancake_size = 10.1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
+mesh = SubResource("PlaneMesh_mdiog")
+surface_material_override/0 = SubResource("ShaderMaterial_f87rm")
+
+[node name="FilmGrain" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.078431375)
+texture_filter = 1
+material = SubResource("ShaderMaterial_ocnb3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("NoiseTexture2D_xp1xf")
+
+[node name="Tester" type="Node" parent="."]
+script = ExtResource("12_mdiog")
+
+[node name="Puzzle" type="Node" parent="Tester"]
+script = ExtResource("13_f87rm")
+
+[node name="Button" type="Button" parent="Tester"]
+offset_left = 22.0
+offset_top = 656.0
+offset_right = 182.0
+offset_bottom = 691.0
+text = "set_initial_state()"

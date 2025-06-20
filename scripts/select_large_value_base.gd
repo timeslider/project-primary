@@ -142,14 +142,10 @@ func _on_crement_pressed(_value: int) -> void:
 func _on_random_pressed():
 	value = int(randf() * (MAX_VALUE + 1))
 
-# TODO: Use the select export variable to change which value we are setting
-# in the global scope
+
 func update_ui(_value: int) -> void:
 	pass
 
 
-# We won't be update the polyomino here
-# TODO: Redo this so that we use our 3D tiles.
-# TODO: In the base class, do nothing. In 
 func update_tiles() -> void:
 	pass

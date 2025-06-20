@@ -1,9 +1,6 @@
 class_name MainMenu
 extends Control
 
-
-
-
 # Continue
 @onready var continue_button: Button = %ContinueButton
 

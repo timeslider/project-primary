@@ -110,7 +110,8 @@ static func canonicalize(bitboard: int) -> int:
 	return min_board
 
 
-## Compares two signed integers a with b as if they were unsigned
+## Compares two signed 64-bit integers a and b [br]
+## as if they were unsigned 64-bit integers
 static func compare_unsigned(a: int, b: int) -> int:
 	var a_sign: int = (a >> 63) & 1
 	var b_sign: int = (b >> 63) & 1
@@ -129,3 +130,34 @@ static func compare_unsigned(a: int, b: int) -> int:
 			return 1
 		else:
 			return 0
+
+
+# There's an insintric that does this if we had access to it...
+static func trailing_zero_count(value: int) -> int:
+	if value == 0:
+		return 64
+	var result: int = 0
+	while ((value & 1) == 0):
+		result += 1
+		value >>= 1
+	return result
+
+
+## Takes a color bitboard (a bitboard with exactly 1 bit) and returns where
+## it's located in the bitboard as a 1D index. (0, 63)
+static func bitboard_to_index(bitboard: int) -> int:
+	assert(pop_count(bitboard) != 1, "bitboard must contain exactly 1 bit")
+	var bit_position: int = trailing_zero_count(bitboard)
+	@warning_ignore("integer_division")
+	var row: int = bit_position / 8
+	var col: int = bit_position % 8
+	return row * 8 + col
+
+
+## Returns the number of bits set in the bitboard
+static func pop_count(bitboard: int) -> int:
+	var count: int = 0
+	while bitboard > 0:
+		bitboard &= (bitboard - 1)
+		count += 1
+	return count
